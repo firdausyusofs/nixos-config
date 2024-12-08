@@ -118,31 +118,60 @@ in {
     };
   };
 
-  programs.direnv= {
+  # programs.direnv= {
+  #   enable = true;
+  #
+  #   config = {
+  #     whitelist = {
+  #       prefix= [
+  #         "$HOME/code/go/src/github.com/hashicorp"
+  #         "$HOME/code/go/src/github.com/mitchellh"
+  #       ];
+  #
+  #       exact = ["$HOME/.envrc"];
+  #     };
+  #   };
+  # };
+
+  # programs.fish = {
+  #   enable = true;
+  #   interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" ([
+  #     "source ${sources.theme-bobthefish}/functions/fish_prompt.fish"
+  #     "source ${sources.theme-bobthefish}/functions/fish_right_prompt.fish"
+  #     "source ${sources.theme-bobthefish}/functions/fish_title.fish"
+  #     (builtins.readFile ./config.fish)
+  #     "set -g SHELL ${pkgs.fish}/bin/fish"
+  #   ]));
+  #
+  #   shellAliases = {
+  #     ga = "git add";
+  #     gc = "git commit";
+  #     gco = "git checkout";
+  #     gcp = "git cherry-pick";
+  #     gdiff = "git diff";
+  #     gl = "git prettylog";
+  #     gp = "git push";
+  #     gs = "git status";
+  #     gt = "git tag";
+  #   } // (if isLinux then {
+  #     # Two decades of using a Mac has made this such a strong memory
+  #     # that I'm just going to keep it consistent.
+  #     pbcopy = "xclip";
+  #     pbpaste = "xclip -o";
+  #   } else {});
+  #
+  #   plugins = map (n: {
+  #     name = n;
+  #     src  = sources.${n};
+  #   }) [
+  #     "fish-fzf"
+  #     "fish-foreign-env"
+  #     "theme-bobthefish"
+  #   ];
+  # };
+
+  programs.zsh = {
     enable = true;
-
-    config = {
-      whitelist = {
-        prefix= [
-          "$HOME/code/go/src/github.com/hashicorp"
-          "$HOME/code/go/src/github.com/mitchellh"
-        ];
-
-        exact = ["$HOME/.envrc"];
-      };
-    };
-  };
-
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = lib.strings.concatStrings (lib.strings.intersperse "\n" ([
-      "source ${sources.theme-bobthefish}/functions/fish_prompt.fish"
-      "source ${sources.theme-bobthefish}/functions/fish_right_prompt.fish"
-      "source ${sources.theme-bobthefish}/functions/fish_title.fish"
-      (builtins.readFile ./config.fish)
-      "set -g SHELL ${pkgs.fish}/bin/fish"
-    ]));
-
     shellAliases = {
       ga = "git add";
       gc = "git commit";
@@ -153,31 +182,13 @@ in {
       gp = "git push";
       gs = "git status";
       gt = "git tag";
-    } // (if isLinux then {
-      # Two decades of using a Mac has made this such a strong memory
-      # that I'm just going to keep it consistent.
-      pbcopy = "xclip";
-      pbpaste = "xclip -o";
-    } else {});
-
-    plugins = map (n: {
-      name = n;
-      src  = sources.${n};
-    }) [
-      "fish-fzf"
-      "fish-foreign-env"
-      "theme-bobthefish"
-    ];
+    };
   };
 
   programs.git = {
     enable = true;
-    userName = "Mitchell Hashimoto";
-    userEmail = "mitchell.hashimoto@gmail.com";
-    signing = {
-      key = "523D5DC389D273BC";
-      signByDefault = true;
-    };
+    userName = "Firdaus Yusof";
+    userEmail = "firdausyusof06@gmail.com";
     aliases = {
       cleanup = "!git branch --merged | grep  -v '\\*\\|master\\|develop' | xargs -n 1 -r git branch -d";
       prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(r) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
@@ -188,7 +199,7 @@ in {
       color.ui = true;
       core.askPass = ""; # needs to be empty to use terminal for ask pass
       credential.helper = "store"; # want to make this more secure
-      github.user = "mitchellh";
+      github.user = "firdausyusofs";
       push.default = "tracking";
       init.defaultBranch = "main";
     };
@@ -197,7 +208,6 @@ in {
   programs.go = {
     enable = true;
     goPath = "code/go";
-    goPrivate = [ "github.com/mitchellh" "github.com/hashicorp" "rfc822.mx" ];
   };
 
   programs.tmux = {
@@ -268,7 +278,7 @@ in {
     plugins = with pkgs; [
       customVim.vim-copilot
       customVim.vim-cue
-      customVim.vim-fish
+      # customVim.vim-fish
       customVim.vim-fugitive
       customVim.vim-glsl
       customVim.vim-misc
