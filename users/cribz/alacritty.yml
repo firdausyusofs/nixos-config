@@ -1,6 +1,7 @@
 window:
   # Make the window match better
   decorations: transparent
+  opacity: 0.5
 
   # We require padding so that with a transparent window the prompt
   # doesn't start right up at the top.

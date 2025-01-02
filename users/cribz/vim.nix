@@ -2,7 +2,7 @@
 
 self: super:
 
-let sources = import ../../nix/sources.nix; in rec {
+{
   # My vim config
   customVim = with self; {
     vim-copilot = vimUtils.buildVimPlugin {
@@ -10,85 +10,82 @@ let sources = import ../../nix/sources.nix; in rec {
       src = inputs.vim-copilot;
     };
 
-    vim-cue = vimUtils.buildVimPlugin {
-      name = "vim-cue";
-      src = sources.vim-cue;
+    nvim-plenary = vimUtils.buildVimPlugin {
+      name = "nvim-plenary";
+      src = inputs.nvim-plenary;
+      buildPhase = ":";
     };
 
-    # vim-fish = vimUtils.buildVimPlugin {
-    #   name = "vim-fish";
-    #   src = sources.vim-fish;
+    nvim-telescope = vimUtils.buildVimPlugin {
+      name = "nvim-telescope";
+      src = inputs.nvim-telescope;
+      buildPhase = ":";
+    };
+
+    nvim-lspconfig = vimUtils.buildVimPlugin {
+      name = "nvim-lspconfig";
+      src = inputs.nvim-lspconfig;
+      buildPhase = ":";
+    };
+
+    # nvim-mason = vimUtils.buildVimPlugin {
+    #   name = "nvim-mason";
+    #   src = inputs.nvim-mason;
+    # };
+    #
+    # nvim-mason-lspconfig = vimUtils.buildVimPlugin {
+    #   name = "nvim-mason-lspconfig";
+    #   src = inputs.nvim-mason-lspconfig;
     # };
 
-    vim-fugitive = vimUtils.buildVimPlugin {
-      name = "vim-fugitive";
-      src = sources.vim-fugitive;
+    nvim-config = vimUtils.buildVimPlugin {
+      name = "nvim-config";
+      src = inputs.nvim-config;
     };
 
-    vim-glsl = vimUtils.buildVimPlugin {
-      name = "vim-glsl";
-      src = sources.vim-glsl;
+    nvim-oil = vimUtils.buildVimPlugin {
+      name = "nvim-oil";
+      src = inputs.nvim-oil;
     };
 
-    vim-misc = vimUtils.buildVimPlugin {
-      name = "vim-misc";
-      src = sources.vim-misc;
+    nvim-schemastore = vimUtils.buildVimPlugin {
+      name = "nvim-schemastore";
+      src = inputs.nvim-schemastore;
     };
 
-    vim-pgsql = vimUtils.buildVimPlugin {
-      name = "vim-pgsql";
-      src = sources.vim-pgsql;
+    nvim-cmp = vimUtils.buildVimPlugin {
+      name = "nvim-cmp";
+      src = inputs.nvim-cmp;
     };
 
-    vim-tla = vimUtils.buildVimPlugin {
-      name = "tla.vim";
-      src = sources.vim-tla;
+    nvim-cmp-nvim-lsp = vimUtils.buildVimPlugin {
+      name = "nvim-cmp-nvim-lsp";
+      src = inputs.nvim-cmp-nvim-lsp;
     };
 
-    vim-zig = vimUtils.buildVimPlugin {
-      name = "zig.vim";
-      src = sources.vim-zig;
+    nvim-cmp-path = vimUtils.buildVimPlugin {
+      name = "nvim-cmp-path";
+      src = inputs.nvim-cmp-path;
     };
 
-    dracula = vimUtils.buildVimPlugin {
-      name = "dracula";
-      src = sources.vim-dracula;
+    nvim-friendly-snippets = vimUtils.buildVimPlugin {
+      name = "nvim-friendly-snippets";
+      src = inputs.nvim-friendly-snippets;
     };
 
-    pigeon = vimUtils.buildVimPlugin {
-      name = "pigeon.vim";
-      src = sources.vim-pigeon;
+    nvim-lspkind = vimUtils.buildVimPlugin {
+      name = "nvim-lspkind";
+      src = inputs.nvim-lspkind;
     };
 
-    AfterColors = vimUtils.buildVimPlugin {
-      name = "AfterColors";
-      src = pkgs.fetchFromGitHub {
-        owner = "vim-scripts";
-        repo = "AfterColors.vim";
-        rev = "9936c26afbc35e6f92275e3f314a735b54ba1aaf";
-        sha256 = "0j76g83zlxyikc41gn1gaj7pszr37m7xzl8i9wkfk6ylhcmjp2xi";
-      };
+    nvim-luasnip = vimUtils.buildVimPlugin {
+      name = "nvim-luasnip";
+      src = inputs.nvim-luasnip;
     };
 
-    vim-devicons = vimUtils.buildVimPlugin {
-      name = "vim-devicons";
-      src = sources.vim-devicons;
-    };
-
-    vim-nord = vimUtils.buildVimPlugin {
-      name = "vim-nord";
-      src = sources.vim-nord;
-    };
-
-    nvim-cinnamon = vimUtils.buildVimPlugin {
-      name = "nvim-cinnamon";
-      src = inputs.nvim-cinnamon;
-    };
-
-    nvim-comment = vimUtils.buildVimPlugin {
-      name = "nvim-comment";
-      src = sources.nvim-comment;
-      buildPhase = ":";
+    nvim-cmp-luasnip = vimUtils.buildVimPlugin {
+      name = "nvim-cmp-luasnip";
+      src = inputs.nvim-cmp-luasnip;
     };
 
     nvim-conform = vimUtils.buildVimPlugin {
@@ -96,21 +93,9 @@ let sources = import ../../nix/sources.nix; in rec {
       src = inputs.nvim-conform;
     };
 
-    nvim-magma = vimUtils.buildVimPlugin {
-      name = "nvim-magma";
-      src = sources.nvim-magma;
-    };
-
-    nvim-plenary = vimUtils.buildVimPlugin {
-      name = "nvim-plenary";
-      src = sources.nvim-plenary;
-      buildPhase = ":";
-    };
-
-    nvim-telescope = vimUtils.buildVimPlugin {
-      name = "nvim-telescope";
-      src = sources.nvim-telescope;
-      buildPhase = ":";
+    nvim-alpha = vimUtils.buildVimPlugin {
+      name = "nvim-alpha";
+      src = inputs.nvim-alpha;
     };
 
     nvim-treesitter = vimUtils.buildVimPlugin {
@@ -118,42 +103,132 @@ let sources = import ../../nix/sources.nix; in rec {
       src = inputs.nvim-treesitter;
     };
 
-    nvim-treesitter-playground = vimUtils.buildVimPlugin {
-      name = "nvim-treesitter-playground";
-      src = sources.nvim-treesitter-playground;
+    dracula = vimUtils.buildVimPlugin {
+      name = "dracula";
+      src = inputs.vim-dracula;
     };
 
-    nvim-lspconfig = vimUtils.buildVimPlugin {
-      name = "nvim-lspconfig";
-      src = sources.nvim-lspconfig;
-
-      # We have to do this because the build phase runs tests which require
-      # git and I don't know how to get git into here.
-      buildPhase = ":";
+    vim-nord = vimUtils.buildVimPlugin {
+      name = "vim-nord";
+      src = inputs.vim-nord;
     };
-
-    nvim-lspinstall = vimUtils.buildVimPlugin {
-      name = "nvim-lspinstall";
-      src = sources.nvim-lspinstall;
-    };
-
-    nvim-treesitter-textobjects = vimUtils.buildVimPlugin {
-      name = "nvim-treesitter-textobjects";
-      src = sources.nvim-treesitter-textobjects;
-    };
+    #
+    # vim-cue = vimUtils.buildVimPlugin {
+    #   name = "vim-cue";
+    #   src = sources.vim-cue;
+    # };
+    #
+    # vim-fish = vimUtils.buildVimPlugin {
+    #   name = "vim-fish";
+    #   src = sources.vim-fish;
+    # };
+    #
+    # vim-fugitive = vimUtils.buildVimPlugin {
+    #   name = "vim-fugitive";
+    #   src = sources.vim-fugitive;
+    # };
+    #
+    # vim-glsl = vimUtils.buildVimPlugin {
+    #   name = "vim-glsl";
+    #   src = sources.vim-glsl;
+    # };
+    #
+    # vim-misc = vimUtils.buildVimPlugin {
+    #   name = "vim-misc";
+    #   src = sources.vim-misc;
+    # };
+    #
+    # vim-pgsql = vimUtils.buildVimPlugin {
+    #   name = "vim-pgsql";
+    #   src = sources.vim-pgsql;
+    # };
+    #
+    # vim-tla = vimUtils.buildVimPlugin {
+    #   name = "tla.vim";
+    #   src = sources.vim-tla;
+    # };
+    #
+    # vim-zig = vimUtils.buildVimPlugin {
+    #   name = "zig.vim";
+    #   src = sources.vim-zig;
+    # };
+    #
+    
+    # pigeon = vimUtils.buildVimPlugin {
+    #   name = "pigeon.vim";
+    #   src = sources.vim-pigeon;
+    # };
+    #
+    # AfterColors = vimUtils.buildVimPlugin {
+    #   name = "AfterColors";
+    #   src = pkgs.fetchFromGitHub {
+    #     owner = "vim-scripts";
+    #     repo = "AfterColors.vim";
+    #     rev = "9936c26afbc35e6f92275e3f314a735b54ba1aaf";
+    #     sha256 = "0j76g83zlxyikc41gn1gaj7pszr37m7xzl8i9wkfk6ylhcmjp2xi";
+    #   };
+    # };
+    #
+    # vim-devicons = vimUtils.buildVimPlugin {
+    #   name = "vim-devicons";
+    #   src = sources.vim-devicons;
+    # };
+    #
+    #
+    # nvim-cinnamon = vimUtils.buildVimPlugin {
+    #   name = "nvim-cinnamon";
+    #   src = inputs.nvim-cinnamon;
+    # };
+    #
+    # nvim-comment = vimUtils.buildVimPlugin {
+    #   name = "nvim-comment";
+    #   src = sources.nvim-comment;
+    #   buildPhase = ":";
+    # };
+    #
+    
+    # nvim-magma = vimUtils.buildVimPlugin {
+    #   name = "nvim-magma";
+    #   src = sources.nvim-magma;
+    # };
+    #
+    #
+    #
+    # nvim-treesitter-playground = vimUtils.buildVimPlugin {
+    #   name = "nvim-treesitter-playground";
+    #   src = sources.nvim-treesitter-playground;
+    # };
+    #
+    #
+    # nvim-lspinstall = vimUtils.buildVimPlugin {
+    #   name = "nvim-lspinstall";
+    #   src = sources.nvim-lspinstall;
+    # };
+    #
+    # nvim-treesitter-textobjects = vimUtils.buildVimPlugin {
+    #   name = "nvim-treesitter-textobjects";
+    #   src = sources.nvim-treesitter-textobjects;
+    # };
   };
 
-  tree-sitter-proto = self.callPackage
-    (sources.nixpkgs + /pkgs/development/tools/parsing/tree-sitter/grammar.nix) { } {
-    language = "proto";
-    version  = "0.1.0";
-    source   = sources.tree-sitter-proto;
-  };
+  # tree-sitter-php = self.callPackage
+  #   (inputs.nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { } {
+  #   language = "php";
+  #   version  = "0.23.11";
+  #   source   = inputs.tree-sitter-php;
+  # };
 
-  tree-sitter-hcl = self.callPackage
-    (sources.nixpkgs + /pkgs/development/tools/parsing/tree-sitter/grammar.nix) { } {
-    language = "hcl";
-    version  = "0.1.0";
-    source   = sources.tree-sitter-hcl;
-  };
+  # tree-sitter-proto = self.callPackage
+  #   (sources.nixpkgs + /pkgs/development/tools/parsing/tree-sitter/grammar.nix) { } {
+  #   language = "proto";
+  #   version  = "0.1.0";
+  #   source   = sources.tree-sitter-proto;
+  # };
+  #
+  # tree-sitter-hcl = self.callPackage
+  #   (sources.nixpkgs + /pkgs/development/tools/parsing/tree-sitter/grammar.nix) { } {
+  #   language = "hcl";
+  #   version  = "0.1.0";
+  #   source   = sources.tree-sitter-hcl;
+  # };
 }
