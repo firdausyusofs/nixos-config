@@ -43,7 +43,7 @@ in {
   networking.hostName = "dev";
 
   # Set your time zone.
-  time.timeZone = "America/Los_Angeles";
+  time.timeZone = "Asia/Kuala_Lumpur";
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -86,7 +86,7 @@ in {
     };
 
     displayManager = {
-      defaultSession = "none+i3";
+      # defaultSession = "none+i3";
       lightdm.enable = true;
 
       # AARCH64: For now, on Apple Silicon, we must manually set the
@@ -100,6 +100,8 @@ in {
       i3.enable = true;
     };
   };
+
+  services.displayManager.defaultSession = "none+i3";
 
   # Enable tailscale. We manually authenticate when we want with
   # "sudo tailscale up". If you don't use tailscale, you should comment
@@ -166,4 +168,22 @@ in {
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
+
+  services.picom = {
+    enable = true;
+    fade = true;
+    # vSync = true;
+    shadow = true;
+    fadeDelta = 4 ;
+    inactiveOpacity = 1;
+    activeOpacity = 1;
+    backend = "glx";
+    settings = {
+      blur = {
+        method = "dual_kawase";
+        # background = true;
+        strength = 5;
+      };
+    };
+  };
 }

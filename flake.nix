@@ -35,6 +35,13 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+
+      # inputs.nixpkgs-stable.follows = "nixpkgs";
+      # inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
+
     # Other packages
     zig.url = "github:mitchellh/zig-overlay";
 
@@ -47,9 +54,63 @@
     nvim-treesitter.flake = false;
     vim-copilot.url = "github:github/copilot.vim/v1.32.0";
     vim-copilot.flake = false;
+    nvim-plenary.url = "github:nvim-lua/plenary.nvim/v0.1.4";
+    nvim-plenary.flake = false;
+    nvim-telescope.url = "github:nvim-telescope/telescope.nvim/0.1.8";
+    nvim-telescope.flake = false;
+    nvim-lspconfig.url = "github:neovim/nvim-lspconfig/v1.2.0";
+    nvim-lspconfig.flake = false;
+    nvim-config.url = "github:firdausyusofs/nvim-config/4c76626";
+    nvim-config.flake = false;
+    nvim-oil.url = "github:stevearc/oil.nvim/v2.14.0";
+    nvim-oil.flake = false;
+    # nvim-mason.url = "github:williamboman/mason.nvim/v1.10.0";
+    # nvim-mason.flake = false;
+    # nvim-mason-lspconfig.url = "github:williamboman/mason-lspconfig.nvim/v1.31.0";
+    # nvim-mason-lspconfig.flake = false;
+    nvim-schemastore.url = "github:b0o/SchemaStore.nvim";
+    nvim-schemastore.flake = false;
+    nvim-cmp.url = "github:hrsh7th/nvim-cmp/b555203";
+    nvim-cmp.flake = false;
+    nvim-cmp-nvim-lsp = {
+      url = "github:hrsh7th/cmp-nvim-lsp";
+      flake = false;
+    };
+    nvim-cmp-path = {
+      url = "github:hrsh7th/cmp-path";
+      flake = false;
+    };
+    nvim-friendly-snippets = {
+      url = "github:rafamadriz/friendly-snippets";
+      flake = false;
+    };
+    nvim-lspkind = {
+      url = "github:onsails/lspkind-nvim";
+      flake = false;
+    };
+    nvim-luasnip = {
+      url = "github:L3MON4D3/LuaSnip/v2.3.0";
+      flake = false;
+    };
+    nvim-cmp-luasnip = {
+      url = "github:saadparwaiz1/cmp_luasnip";
+      flake = false;
+    };
+    nvim-alpha = {
+      url = "github:goolord/alpha-nvim";
+      flake = false;
+    };
+    vim-dracula = {
+      url = "github:dracula/vim/v2.0.0";
+      flake = false;
+    };
+    vim-nord = {
+      url = "github:crispgm/nord-vim";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ... }@inputs: let
+  outputs = { self, nixpkgs, home-manager, darwin, ghostty, ... }@inputs: let
     # Overlays is the list of overlays we want to apply from flake inputs.
     overlays = [
       inputs.zig.overlays.default

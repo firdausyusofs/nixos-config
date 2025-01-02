@@ -29,6 +29,8 @@ in {
   # per-project flakes sourced with direnv and nix-shell, so this is
   # not a huge list.
   home.packages = [
+    inputs.ghostty.packages.${pkgs.system}.default
+
     pkgs.asciinema
     pkgs.bat
     pkgs.fd
@@ -39,9 +41,12 @@ in {
     pkgs.ripgrep
     pkgs.tree
     pkgs.watch
+    pkgs.feh
+    pkgs.python3
+    pkgs.php
 
     pkgs.gopls
-    pkgs.zigpkgs."0.12.0"
+    pkgs.zigpkgs.default
 
     # Node is required for Copilot.vim
     pkgs.nodejs
@@ -56,6 +61,7 @@ in {
     pkgs.valgrind
     pkgs.zathura
     pkgs.xfce.xfce4-terminal
+    pkgs.pcmanfm
   ]);
 
   #---------------------------------------------------------------------
@@ -79,13 +85,13 @@ in {
     "rofi/config.rasi".text = builtins.readFile ./rofi;
 
     # tree-sitter parsers
-    "nvim/parser/proto.so".source = "${pkgs.tree-sitter-proto}/parser";
-    "nvim/queries/proto/folds.scm".source =
-      "${sources.tree-sitter-proto}/queries/folds.scm";
-    "nvim/queries/proto/highlights.scm".source =
-      "${sources.tree-sitter-proto}/queries/highlights.scm";
-    "nvim/queries/proto/textobjects.scm".source =
-      ./textobjects.scm;
+    # "nvim/parser/proto.so".source = "${pkgs.tree-sitter-proto}/parser";
+    # "nvim/queries/proto/folds.scm".source =
+    #   "${sources.tree-sitter-proto}/queries/folds.scm";
+    # "nvim/queries/proto/highlights.scm".source =
+    #   "${sources.tree-sitter-proto}/queries/highlights.scm";
+    # "nvim/queries/proto/textobjects.scm".source =
+    #   ./textobjects.scm;
   } // (if isDarwin then {
     # Rectangle.app. This has to be imported manually using the app.
     "rectangle/RectangleConfig.json".text = builtins.readFile ./RectangleConfig.json;
@@ -99,6 +105,10 @@ in {
 
   programs.gpg.enable = !isDarwin;
 
+  # programs.ghostty = {
+  #   enable = true;
+  # };
+
   programs.bash = {
     enable = true;
     shellOptions = [];
@@ -110,11 +120,12 @@ in {
       gc = "git commit";
       gco = "git checkout";
       gcp = "git cherry-pick";
-      gdiff = "git diff";
+      gdiff = "gi diff";
       gl = "git prettylog";
       gp = "git push";
       gs = "git status";
       gt = "git tag";
+      open = "pcmanfm";
     };
   };
 
@@ -173,6 +184,7 @@ in {
   programs.zsh = {
     enable = true;
     shellAliases = {
+      g = "git";
       ga = "git add";
       gc = "git commit";
       gco = "git checkout";
@@ -182,6 +194,19 @@ in {
       gp = "git push";
       gs = "git status";
       gt = "git tag";
+      vim = "nvim";
+    };
+
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "z" ];
+      theme = "robbyrussell";
+    };
+
+    autosuggestion.enable = true;
+
+    syntaxHighlighting = {
+      enable = true;
     };
   };
 
@@ -213,8 +238,13 @@ in {
   programs.tmux = {
     enable = true;
     terminal = "xterm-256color";
-    shortcut = "l";
+    shortcut = "a";
     secureSocket = false;
+
+    plugins = with pkgs; [
+      tmuxPlugins.better-mouse-mode
+      tmuxPlugins.vim-tmux-navigator
+    ];
 
     extraConfig = ''
       set -ga terminal-overrides ",*256col*:Tc"
@@ -223,7 +253,19 @@ in {
       set -g @dracula-show-network false
       set -g @dracula-show-weather false
 
+      unbind r
+      bind r source-file ~/.config/tmux/tmux.conf
+
       bind -n C-k send-keys "clear"\; send-keys "Enter"
+
+      bind -r m resize-pane -Z
+
+      set -g mouse on
+
+      set-window-option -g mode-keys vi
+
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi y send-keys -X copy-selection
 
       run-shell ${sources.tmux-pain-control}/pain_control.tmux
       run-shell ${sources.tmux-dracula}/dracula.tmux
@@ -236,13 +278,13 @@ in {
     settings = {
       env.TERM = "xterm-256color";
 
-      key_bindings = [
+      keyboard.bindings = [
         { key = "K"; mods = "Command"; chars = "ClearHistory"; }
         { key = "V"; mods = "Command"; action = "Paste"; }
         { key = "C"; mods = "Command"; action = "Copy"; }
         { key = "Key0"; mods = "Command"; action = "ResetFontSize"; }
         { key = "Equals"; mods = "Command"; action = "IncreaseFontSize"; }
-        { key = "Subtract"; mods = "Command"; action = "DecreaseFontSize"; }
+        { key = "NumpadSubtract"; mods = "Command"; action = "DecreaseFontSize"; }
       ];
     };
   };
@@ -275,44 +317,64 @@ in {
 
     withPython3 = true;
 
+    extraPackages = with pkgs; [
+      lua-language-server
+      pyright
+      nodePackages.intelephense 
+    ];
+
     plugins = with pkgs; [
       customVim.vim-copilot
-      customVim.vim-cue
-      # customVim.vim-fish
-      customVim.vim-fugitive
-      customVim.vim-glsl
-      customVim.vim-misc
-      customVim.vim-pgsql
-      customVim.vim-tla
-      customVim.vim-zig
-      customVim.pigeon
-      customVim.AfterColors
+      customVim.nvim-config
+      customVim.nvim-oil
+      customVim.nvim-alpha
+      # customVim.vim-cue
+      # # customVim.vim-fish
+      # customVim.vim-fugitive
+      # customVim.vim-glsl
+      # customVim.vim-pgsql
+      # customVim.vim-tla
+      # customVim.vim-zig
+      # customVim.pigeon
+      # customVim.AfterColors
 
       customVim.vim-nord
-      customVim.nvim-cinnamon
-      customVim.nvim-comment
+      # customVim.nvim-cinnamon
+      # customVim.nvim-comment
+      customVim.nvim-cmp
+      customVim.nvim-cmp-nvim-lsp
+      customVim.nvim-cmp-path
+      customVim.nvim-friendly-snippets
+      customVim.nvim-lspkind
+      customVim.nvim-luasnip
+      customVim.nvim-cmp-luasnip
       customVim.nvim-conform
       customVim.nvim-lspconfig
+      # customVim.nvim-mason
+      # customVim.nvim-mason-lspconfig
+      customVim.nvim-schemastore
+
       customVim.nvim-plenary # required for telescope
       customVim.nvim-telescope
       customVim.nvim-treesitter
-      customVim.nvim-treesitter-playground
-      customVim.nvim-treesitter-textobjects
+      # customVim.nvim-treesitter-playground
+      # customVim.nvim-treesitter-textobjects
 
-      vimPlugins.vim-airline
-      vimPlugins.vim-airline-themes
-      vimPlugins.vim-eunuch
-      vimPlugins.vim-gitgutter
-
-      vimPlugins.vim-markdown
-      vimPlugins.vim-nix
+      # vimPlugins.vim-airline
+      # vimPlugins.vim-airline-themes
+      # vimPlugins.vim-eunuch
+      # vimPlugins.vim-gitgutter
+      #
+      # vimPlugins.vim-markdown
+      # vimPlugins.vim-nix
       vimPlugins.typescript-vim
-      vimPlugins.nvim-treesitter-parsers.elixir
+      vimPlugins.nvim-treesitter-parsers.php
+      # vimPlugins.nvim-treesitter-parsers.elixir
     ] ++ (lib.optionals (!isWSL) [
       # This is causing a segfaulting while building our installer
       # for WSL so just disable it for now. This is a pretty
       # unimportant plugin anyway.
-      customVim.vim-devicons
+      # customVim.vim-devicons
     ]);
 
     extraConfig = (import ./vim-config.nix) { inherit sources; };

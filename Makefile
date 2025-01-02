@@ -7,7 +7,7 @@ NIXUSER ?= cribz
 MAKEFILE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 # The name of the nixosConfiguration in the flake
-NIXNAME ?= vm-aarch64-utm
+NIXNAME ?= vm-aarch64
 
 # SSH options that are used. These aren't meant to be overridden but are
 # reused a lot so we just store them up here.
@@ -49,15 +49,15 @@ cache:
 # in one step but when I tried to merge them I got errors. One day.
 vm/bootstrap0:
 	ssh $(SSH_OPTIONS) -p$(NIXPORT) root@$(NIXADDR) " \
-		parted /dev/vda -- mklabel gpt; \
-		parted /dev/vda -- mkpart primary 512MB -8GB; \
-		parted /dev/vda -- mkpart primary linux-swap -8GB 100\%; \
-		parted /dev/vda -- mkpart ESP fat32 1MB 512MB; \
-		parted /dev/vda -- set 3 esp on; \
+		parted /dev/sda -- mklabel gpt; \
+		parted /dev/sda -- mkpart primary 512MB -8GB; \
+		parted /dev/sda -- mkpart primary linux-swap -8GB 100\%; \
+		parted /dev/sda -- mkpart ESP fat32 1MB 512MB; \
+		parted /dev/sda -- set 3 esp on; \
 		sleep 1; \
-		mkfs.ext4 -L nixos /dev/vda1; \
-		mkswap -L swap /dev/vda2; \
-		mkfs.fat -F 32 -n boot /dev/vda3; \
+		mkfs.ext4 -L nixos /dev/sda1; \
+		mkswap -L swap /dev/sda2; \
+		mkfs.fat -F 32 -n boot /dev/sda3; \
 		sleep 1; \
 		mount /dev/disk/by-label/nixos /mnt; \
 		mkdir -p /mnt/boot; \

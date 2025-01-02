@@ -6,6 +6,15 @@ macos-non-native-fullscreen = visible-menu
 macos-option-as-alt = left
 mouse-hide-while-typing = true
 
+background = #282c34
+
+shell-integration = zsh
+shell-integration-features = no-cursor,no-title
+window-inherit-working-directory = true
+
+cursor-style = block
+cursor-style-blink = false
+
 # Keybinds to match macOS since this is a VM
 keybind = super+c=copy_to_clipboard
 keybind = super+v=paste_from_clipboard
