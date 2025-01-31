@@ -47,6 +47,13 @@ in {
 
     pkgs.gopls
     pkgs.zigpkgs.default
+    (pkgs.rust-bin.stable.latest.default.override {
+      extensions = [
+        "rust-src"
+        "rust-analyzer"
+      ];
+      targets = [ "wasm32-unknown-unknown" ];
+    })
 
     # Node is required for Copilot.vim
     pkgs.nodejs
@@ -62,6 +69,23 @@ in {
     pkgs.zathura
     pkgs.xfce.xfce4-terminal
     pkgs.pcmanfm
+
+    # For raylib
+    pkgs.pkg-config
+    pkgs.gcc
+    pkgs.libglvnd
+    pkgs.mesa
+    pkgs.xorg.libXi.dev        # X Input extension
+    pkgs.xorg.libXcursor.dev   # X cursor management
+    pkgs.xorg.libXrandr.dev    # RandR extension
+    pkgs.xorg.libXinerama.dev  # Xinerama extensionpkgs.wayland
+    pkgs.xorg.libX11.dev
+    # pkgs.xorg.xorgproto
+    pkgs.libGL.dev
+    pkgs.libxkbcommon.dev
+    pkgs.wayland
+    pkgs.wayland-protocols
+    pkgs.openssl.dev
   ]);
 
   #---------------------------------------------------------------------
@@ -208,6 +232,10 @@ in {
     syntaxHighlighting = {
       enable = true;
     };
+
+    initExtra = ''
+      export PATH=$HOME/.cargo/bin:$PATH
+    '';
   };
 
   programs.git = {
@@ -256,9 +284,9 @@ in {
       unbind r
       bind r source-file ~/.config/tmux/tmux.conf
 
-      bind -n C-k send-keys "clear"\; send-keys "Enter"
-
       bind -r m resize-pane -Z
+
+      #bind -n C-k send-keys "clear"\; send-keys "Enter"
 
       set -g mouse on
 
@@ -321,6 +349,9 @@ in {
       lua-language-server
       pyright
       nodePackages.intelephense 
+      zls
+      rust-analyzer
+      nodePackages.typescript-language-server
     ];
 
     plugins = with pkgs; [
@@ -330,7 +361,7 @@ in {
       customVim.nvim-alpha
       # customVim.vim-cue
       # # customVim.vim-fish
-      # customVim.vim-fugitive
+      customVim.vim-fugitive
       # customVim.vim-glsl
       # customVim.vim-pgsql
       # customVim.vim-tla
@@ -339,6 +370,7 @@ in {
       # customVim.AfterColors
 
       customVim.vim-nord
+      customVim.nvim-rosepine
       # customVim.nvim-cinnamon
       # customVim.nvim-comment
       customVim.nvim-cmp
@@ -356,6 +388,9 @@ in {
 
       customVim.nvim-plenary # required for telescope
       customVim.nvim-telescope
+      customVim.nvim-telescope-fzf-native
+      customVim.nvim-telescope-ui-select
+      customVim.nvim-refactoring
       customVim.nvim-treesitter
       # customVim.nvim-treesitter-playground
       # customVim.nvim-treesitter-textobjects
@@ -395,7 +430,17 @@ in {
   home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
     name = "Vanilla-DMZ";
     package = pkgs.vanilla-dmz;
-    size = 128;
     x11.enable = true;
+    gtk.enable = true;
+    size = 128;
+  };
+
+  gtk = {
+    enable = true;
+    cursorTheme = {
+      name = "Vanilla-DMZ";
+      package = pkgs.vanilla-dmz;
+      size = 128;
+    };
   };
 }
