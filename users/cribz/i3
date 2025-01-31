@@ -55,7 +55,7 @@ bindsym $mod+o exec rofi -show run
 bindsym $mod+f exec pcmanfm
 
 # start a terminal
-bindsym $mod+n exec ghostty
+bindsym $mod+n exec ghostty --gtk-single-instance=true
 bindsym $mod+d split h
 bindsym $mod+Shift+d split v
 

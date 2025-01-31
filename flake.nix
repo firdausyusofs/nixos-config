@@ -14,6 +14,10 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
 
+    # snapd
+    nix-snapd.url = "github:nix-community/nix-snapd";
+    nix-snapd.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,6 +48,7 @@
 
     # Other packages
     zig.url = "github:mitchellh/zig-overlay";
+    rust.url = "github:oxalica/rust-overlay";
 
     # Non-flakes
     nvim-cinnamon.url = "github:declancm/cinnamon.nvim";
@@ -58,9 +63,21 @@
     nvim-plenary.flake = false;
     nvim-telescope.url = "github:nvim-telescope/telescope.nvim/0.1.8";
     nvim-telescope.flake = false;
+    nvim-telescope-fzf-native = {
+      url = "github:nvim-telescope/telescope-fzf-native.nvim";
+      flake = false;
+    };
+    nvim-telescope-ui-select = {
+      url = "github:nvim-telescope/telescope-ui-select.nvim";
+      flake = false;
+    };
+    nvim-refactoring = {
+      url = "github:ThePrimeagen/refactoring.nvim";
+      flake = false;
+    };
     nvim-lspconfig.url = "github:neovim/nvim-lspconfig/v1.2.0";
     nvim-lspconfig.flake = false;
-    nvim-config.url = "github:firdausyusofs/nvim-config/4c76626";
+    nvim-config.url = "github:firdausyusofs/nvim-config/62b5135";
     nvim-config.flake = false;
     nvim-oil.url = "github:stevearc/oil.nvim/v2.14.0";
     nvim-oil.flake = false;
@@ -108,12 +125,21 @@
       url = "github:crispgm/nord-vim";
       flake = false;
     };
+    vim-fugitive = {
+        url = "github:tpope/vim-fugitive/v3.7";
+        flake = false;
+    };
+    nvim-rosepine = {
+      url = "github:rose-pine/neovim/v3.0.1";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, darwin, ghostty, ... }@inputs: let
     # Overlays is the list of overlays we want to apply from flake inputs.
     overlays = [
       inputs.zig.overlays.default
+      inputs.rust.overlays.default
     ];
 
     mkSystem = import ./lib/mksystem.nix {

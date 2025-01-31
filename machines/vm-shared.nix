@@ -1,11 +1,11 @@
 { config, pkgs, lib, currentSystem, currentSystemName,... }:
 
-let
-  # Turn this to true to use gnome instead of i3. This is a bit
-  # of a hack, I just flip it on as I need to develop gnome stuff
-  # for now.
-  linuxGnome = false;
-in {
+{
+  imports = [
+    ../modules/specialization/plasma.nix
+    ../modules/specialization/i3.nix
+  ];
+
   # Be careful updating this.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -55,6 +55,9 @@ in {
 
   # Virtualization settings
   virtualisation.docker.enable = true;
+  # virtualisation.lxd = {
+  #   enable = true;
+  # };
 
   # Select internationalisation properties.
   i18n = {
@@ -69,39 +72,10 @@ in {
     };
   };
 
-  # setup windowing environment
-  services.xserver = if linuxGnome then {
-    enable = true;
-    xkb.layout = "us";
-    desktopManager.gnome.enable = true;
-    displayManager.gdm.enable = true;
-  } else {
-    enable = true;
-    xkb.layout = "us";
-    dpi = 220;
+  # sound.enable = true;
+  # hardware.pulseaudio.enable = true;
 
-    desktopManager = {
-      xterm.enable = false;
-      wallpaper.mode = "fill";
-    };
-
-    displayManager = {
-      # defaultSession = "none+i3";
-      lightdm.enable = true;
-
-      # AARCH64: For now, on Apple Silicon, we must manually set the
-      # display resolution. This is a known issue with VMware Fusion.
-      sessionCommands = ''
-        ${pkgs.xorg.xset}/bin/xset r rate 200 40
-      '';
-    };
-
-    windowManager = {
-      i3.enable = true;
-    };
-  };
-
-  services.displayManager.defaultSession = "none+i3";
+  # services.displayManager.defaultSession = "none+i3";
 
   # Enable tailscale. We manually authenticate when we want with
   # "sudo tailscale up". If you don't use tailscale, you should comment
@@ -131,6 +105,7 @@ in {
     niv
     rxvt_unicode
     xclip
+    alsa-utils
 
     # For hypervisors that support auto-resizing, this script forces it.
     # I've noticed not everyone listens to the udev events so this is a hack.
@@ -143,6 +118,14 @@ in {
     # if the clipboard sill works.
     gtkmm3
   ];
+
+  # setup windowing environment
+  services.xserver = lib.mkIf (config.specialisation != {}) {
+    enable = true;
+    xkb.layout = "us";
+    desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -157,6 +140,10 @@ in {
   services.openssh.settings.PasswordAuthentication = true;
   services.openssh.settings.PermitRootLogin = "no";
 
+  services.flatpak.enable = true;
+
+  services.snap.enable = true;
+
   # Disable the firewall since we're in a VM and we want to make it
   # easy to visit stuff in here. We only use NAT networking anyways.
   networking.firewall.enable = false;
@@ -169,21 +156,21 @@ in {
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
 
-  services.picom = {
-    enable = true;
-    fade = true;
-    # vSync = true;
-    shadow = true;
-    fadeDelta = 4 ;
-    inactiveOpacity = 1;
-    activeOpacity = 1;
-    backend = "glx";
-    settings = {
-      blur = {
-        method = "dual_kawase";
-        # background = true;
-        strength = 5;
-      };
-    };
-  };
+  # services.picom = {
+  #   enable = true;
+  #   fade = true;
+  #   # vSync = true;
+  #   shadow = true;
+  #   fadeDelta = 4 ;
+  #   inactiveOpacity = 1;
+  #   activeOpacity = 1;
+  #   backend = "glx";
+  #   settings = {
+  #     blur = {
+  #       method = "dual_kawase";
+  #       # background = true;
+  #       strength = 5;
+  #     };
+  #   };
+  # };
 }

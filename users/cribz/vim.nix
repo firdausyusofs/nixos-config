@@ -22,10 +22,31 @@ self: super:
       buildPhase = ":";
     };
 
+    nvim-telescope-fzf-native = vimUtils.buildVimPlugin {
+      name = "nvim-telescope-fzf-native";
+      src = inputs.nvim-telescope-fzf-native;
+      buildPhase = "make";
+    };
+
+    nvim-telescope-ui-select = vimUtils.buildVimPlugin {
+      name = "nvim-telescope-ui-select";
+      src = inputs.nvim-telescope-ui-select;
+    };
+
+    nvim-refactoring = vimUtils.buildVimPlugin {
+      name = "nvim-refactoring";
+      src = inputs.nvim-refactoring;
+    };
+
     nvim-lspconfig = vimUtils.buildVimPlugin {
       name = "nvim-lspconfig";
       src = inputs.nvim-lspconfig;
       buildPhase = ":";
+    };
+
+    vim-fugitive = vimUtils.buildVimPlugin {
+      name = "vim-fugitive";
+      src = inputs.vim-fugitive;
     };
 
     # nvim-mason = vimUtils.buildVimPlugin {
@@ -111,6 +132,11 @@ self: super:
     vim-nord = vimUtils.buildVimPlugin {
       name = "vim-nord";
       src = inputs.vim-nord;
+    };
+
+    nvim-rosepine = vimUtils.buildVimPlugin {
+      name = "nvim-rosepine";
+      src = inputs.nvim-rosepine;
     };
     #
     # vim-cue = vimUtils.buildVimPlugin {
