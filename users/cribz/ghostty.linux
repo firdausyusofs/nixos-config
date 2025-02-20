@@ -1,7 +1,7 @@
 font-size = 12
 font-family = JetBrains Mono
-background-opacity = 1.0
-background-blur-radius = 20
+background-opacity = 0.7
+#background-blur-radius = 20
 macos-non-native-fullscreen = visible-menu
 macos-option-as-alt = left
 mouse-hide-while-typing = true
@@ -40,3 +40,5 @@ keybind = super+d=new_split:right
 keybind = super+shift+d=new_split:down
 keybind = super+right_bracket=goto_split:next
 keybind = super+left_bracket=goto_split:previous
+
+# custom-shader = shaders/bettercrt.glsl

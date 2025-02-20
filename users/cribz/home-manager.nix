@@ -43,6 +43,7 @@ in {
     pkgs.watch
     pkgs.feh
     pkgs.python3
+    pkgs.virtualenv
     pkgs.php
 
     pkgs.gopls
@@ -86,6 +87,10 @@ in {
     pkgs.wayland
     pkgs.wayland-protocols
     pkgs.openssl.dev
+
+    pkgs.lxappearance
+
+    pkgs.odin
   ]);
 
   #---------------------------------------------------------------------
@@ -93,6 +98,7 @@ in {
   #---------------------------------------------------------------------
 
   home.sessionVariables = {
+    # LD_LIBRARY_PATH=${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXinerama}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXi}/lib:${pkgs.raylib}/lib:${pkgs.mesa}/lib:${pkgs.libglvnd}/lib:$LD_LIBRARY_PATH
     LANG = "en_US.UTF-8";
     LC_CTYPE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
@@ -284,6 +290,8 @@ in {
       unbind r
       bind r source-file ~/.config/tmux/tmux.conf
 
+      set -s escape-time 0
+
       bind -r m resize-pane -Z
 
       #bind -n C-k send-keys "clear"\; send-keys "Enter"
@@ -341,7 +349,7 @@ in {
 
   programs.neovim = {
     enable = true;
-    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 
     withPython3 = true;
 
@@ -352,6 +360,9 @@ in {
       zls
       rust-analyzer
       nodePackages.typescript-language-server
+      gopls
+      # odin
+      ols
     ];
 
     plugins = with pkgs; [
@@ -372,7 +383,7 @@ in {
       customVim.vim-nord
       customVim.nvim-rosepine
       # customVim.nvim-cinnamon
-      # customVim.nvim-comment
+      customVim.nvim-comment
       customVim.nvim-cmp
       customVim.nvim-cmp-nvim-lsp
       customVim.nvim-cmp-path
@@ -391,7 +402,7 @@ in {
       customVim.nvim-telescope-fzf-native
       customVim.nvim-telescope-ui-select
       customVim.nvim-refactoring
-      customVim.nvim-treesitter
+      customVim.nvim-tmux-navigator
       # customVim.nvim-treesitter-playground
       # customVim.nvim-treesitter-textobjects
 
@@ -402,9 +413,26 @@ in {
       #
       # vimPlugins.vim-markdown
       # vimPlugins.vim-nix
-      vimPlugins.typescript-vim
-      vimPlugins.nvim-treesitter-parsers.php
+      # customVim.nvim-treesitter
+      vimPlugins.nvim-treesitter-textobjects
+      (vimPlugins.nvim-treesitter.withPlugins (p: [
+        p.php
+        p.go
+        p.odin
+        p.lua
+      ]))
+      # vimPlugins.nvim-treesitter.withAllGrammars
+      # vimPlugins.typescript-vim
+      # vimPlugins.nvim-treesitter-parsers.php
+      # pkgs.tree-sitter-grammars.tree-sitter-php
+      # vimPlugins.nvim-treesitter-parsers.odin
+      # vimPlugins.nvim-treesitter-parsers.go
       # vimPlugins.nvim-treesitter-parsers.elixir
+
+      # vimPlugins.nvim-ts-context-commentstring
+      # vimPlugins.vim-commentary
+      # customVim.nvim-mini
+      # customVim.nvim-mini-comment
     ] ++ (lib.optionals (!isWSL) [
       # This is causing a segfaulting while building our installer
       # for WSL so just disable it for now. This is a pretty
@@ -431,16 +459,22 @@ in {
     name = "Vanilla-DMZ";
     package = pkgs.vanilla-dmz;
     x11.enable = true;
-    gtk.enable = true;
+    # gtk.enable = true;
     size = 128;
   };
 
-  gtk = {
-    enable = true;
-    cursorTheme = {
-      name = "Vanilla-DMZ";
-      package = pkgs.vanilla-dmz;
-      size = 128;
-    };
-  };
+  # gtk = {
+  #   enable = true;
+  #
+  #   theme = {
+  #     name = "Adwaita-dark";
+  #     package = pkgs.gnome.gnome-themes-extra;
+  #   };
+  #
+  #   cursorTheme = {
+  #     name = "Vanilla-DMZ";
+  #     package = pkgs.vanilla-dmz;
+  #     size = 128;
+  #   };
+  # };
 }

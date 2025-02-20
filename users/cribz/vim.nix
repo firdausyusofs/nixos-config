@@ -49,6 +49,22 @@ self: super:
       src = inputs.vim-fugitive;
     };
 
+    # nvim-mini = vimUtils.buildVimPlugin {
+    #   name = "nvim-mini";
+    #   src = inputs.nvim-mini;
+    # };
+
+    # nvim-mini-comment = vimUtils.buildVimPlugin {
+    #   name = "nvim-mini-comment";
+    #   src = inputs.nvim-mini-comment;
+    # };
+
+    nvim-comment = vimUtils.buildVimPlugin {
+      name = "nvim-comment";
+      src = inputs.nvim-comment;
+      buildPhase = ":";
+    };
+
     # nvim-mason = vimUtils.buildVimPlugin {
     #   name = "nvim-mason";
     #   src = inputs.nvim-mason;
@@ -137,6 +153,11 @@ self: super:
     nvim-rosepine = vimUtils.buildVimPlugin {
       name = "nvim-rosepine";
       src = inputs.nvim-rosepine;
+    };
+
+    nvim-tmux-navigator = vimUtils.buildVimPlugin {
+      name = "nvim-tmux-navigator";
+      src = inputs.nvim-tmux-navigator;
     };
     #
     # vim-cue = vimUtils.buildVimPlugin {

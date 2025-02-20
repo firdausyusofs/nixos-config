@@ -31,13 +31,13 @@
     # I think technically you're not supposed to override the nixpkgs
     # used by neovim but recently I had failures if I didn't pin to my
     # own. We can always try to remove that anytime.
-    neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
-
-      # Only need unstable until the lpeg fix hits mainline, probably
-      # not very long... can safely switch back for 23.11.
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # neovim-nightly-overlay = {
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    #
+    #   # Only need unstable until the lpeg fix hits mainline, probably
+    #   # not very long... can safely switch back for 23.11.
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
 
     ghostty = {
       url = "github:ghostty-org/ghostty";
@@ -55,7 +55,7 @@
     nvim-cinnamon.flake = false;
     nvim-conform.url = "github:stevearc/conform.nvim/v5.2.1";
     nvim-conform.flake = false;
-    nvim-treesitter.url = "github:nvim-treesitter/nvim-treesitter/v0.9.1";
+    nvim-treesitter.url = "github:nvim-treesitter/nvim-treesitter/v0.9.3";
     nvim-treesitter.flake = false;
     vim-copilot.url = "github:github/copilot.vim/v1.32.0";
     vim-copilot.flake = false;
@@ -77,7 +77,7 @@
     };
     nvim-lspconfig.url = "github:neovim/nvim-lspconfig/v1.2.0";
     nvim-lspconfig.flake = false;
-    nvim-config.url = "github:firdausyusofs/nvim-config/62b5135";
+    nvim-config.url = "github:firdausyusofs/nvim-config";
     nvim-config.flake = false;
     nvim-oil.url = "github:stevearc/oil.nvim/v2.14.0";
     nvim-oil.flake = false;
@@ -131,6 +131,23 @@
     };
     nvim-rosepine = {
       url = "github:rose-pine/neovim/v3.0.1";
+      flake = false;
+    };
+    # nvim-mini = {
+    #   url = "github:echasnovski/mini.nvim";
+    #   flake = false;
+    # };
+    # nvim-mini-comment = {
+    #   url = "github:echasnovski/mini.comment";
+    #   flake = false;
+    # };
+    nvim-comment = {
+      url = "github:numToStr/Comment.nvim";
+      flake = false;
+    };
+
+    nvim-tmux-navigator = {
+      url = "github:christoomey/vim-tmux-navigator";
       flake = false;
     };
   };
