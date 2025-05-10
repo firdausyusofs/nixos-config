@@ -26,13 +26,14 @@
         lightdm.greeters.gtk.cursorTheme = {
           name = "Vanilla-DMZ";
           package = pkgs.vanilla-dmz;
-          size = 64;
+          size = 128;
         };
 
         # AARCH64: For now, on Apple Silicon, we must manually set the
         # display resolution. This is a known issue with VMware Fusion.
+        # ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name ${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ/cursors/left_ptr 128 &disown
         sessionCommands = ''
-          ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name ${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ/cursors/left_ptr 128 &disown
+          ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name ${pkgs.vanilla-dmz}/share/icons/Vanilla-DMZ/cursors/left_ptr &disown
           ${pkgs.xorg.xset}/bin/xset r rate 200 40
         '';
       };

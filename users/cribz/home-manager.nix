@@ -31,6 +31,7 @@ in {
   home.packages = [
     inputs.ghostty.packages.${pkgs.system}.default
 
+    pkgs._1password-cli
     pkgs.asciinema
     pkgs.bat
     pkgs.fd
@@ -44,7 +45,8 @@ in {
     pkgs.feh
     pkgs.python3
     pkgs.virtualenv
-    pkgs.php
+    pkgs.php83
+    pkgs.php83Packages.composer
 
     pkgs.gopls
     pkgs.zigpkgs.default
@@ -76,6 +78,7 @@ in {
     pkgs.gcc
     pkgs.libglvnd
     pkgs.mesa
+    pkgs.mesa.drivers
     pkgs.xorg.libXi.dev        # X Input extension
     pkgs.xorg.libXcursor.dev   # X cursor management
     pkgs.xorg.libXrandr.dev    # RandR extension
@@ -88,9 +91,18 @@ in {
     pkgs.wayland-protocols
     pkgs.openssl.dev
 
-    pkgs.lxappearance
+    # pkgs.lxappearance
+
+    pkgs.nodePackages.pnpm
+
+    # pkgs.gtk3
+
+    pkgs.yazi
 
     pkgs.odin
+    pkgs.clang-tools
+    # pkgs.clang
+    # (lib.hiPrio pkgs.dart)
   ]);
 
   #---------------------------------------------------------------------
@@ -113,6 +125,8 @@ in {
   xdg.configFile = {
     "i3/config".text = builtins.readFile ./i3;
     "rofi/config.rasi".text = builtins.readFile ./rofi;
+    "hypr/hyprland.conf".text = builtins.readFile ./hyprland;
+    "hypr/hyprpaper.conf".text = builtins.readFile ./hyprpaper;
 
     # tree-sitter parsers
     # "nvim/parser/proto.so".source = "${pkgs.tree-sitter-proto}/parser";
@@ -349,6 +363,7 @@ in {
 
   programs.neovim = {
     enable = true;
+    # package = pkgs.neovim-unwrapped;
     # package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 
     withPython3 = true;
@@ -367,6 +382,7 @@ in {
 
     plugins = with pkgs; [
       customVim.vim-copilot
+      customVim.nvim-codecompanion
       customVim.nvim-config
       customVim.nvim-oil
       customVim.nvim-alpha
@@ -403,6 +419,13 @@ in {
       customVim.nvim-telescope-ui-select
       customVim.nvim-refactoring
       customVim.nvim-tmux-navigator
+      customVim.nvim-trouble
+      customVim.nvim-gitsigns
+      customVim.nvim-fzf-lua
+      customVim.nvim-octo
+      customVim.nvim-nyoom
+      customVim.nvim-spaceduck
+      # customVim.nvim-flutter-tools
       # customVim.nvim-treesitter-playground
       # customVim.nvim-treesitter-textobjects
 
@@ -414,12 +437,15 @@ in {
       # vimPlugins.vim-markdown
       # vimPlugins.vim-nix
       # customVim.nvim-treesitter
+      # vimPlugins.nvim-treesitter-context
       vimPlugins.nvim-treesitter-textobjects
       (vimPlugins.nvim-treesitter.withPlugins (p: [
         p.php
         p.go
         p.odin
         p.lua
+        p.c
+        p.dart
       ]))
       # vimPlugins.nvim-treesitter.withAllGrammars
       # vimPlugins.typescript-vim
@@ -459,7 +485,7 @@ in {
     name = "Vanilla-DMZ";
     package = pkgs.vanilla-dmz;
     x11.enable = true;
-    # gtk.enable = true;
+    gtk.enable = true;
     size = 128;
   };
 

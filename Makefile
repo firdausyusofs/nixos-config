@@ -16,7 +16,8 @@ SSH_OPTIONS=-o PubkeyAuthentication=no -o UserKnownHostsFile=/dev/null -o Strict
 # We need to do some OS switching below.
 UNAME := $(shell uname)
 
-SPECIALIZATION ?= i3
+# SPECIALIZATION ?= i3
+SPECIALIZATION ?= hyprland
 
 switch:
 ifeq ($(UNAME), Darwin)

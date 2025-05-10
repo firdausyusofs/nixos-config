@@ -13,7 +13,7 @@
   users.users.cribz = {
     isNormalUser = true;
     home = "/home/cribz";
-    extraGroups = [ "docker" "wheel" ];
+    extraGroups = [ "docker" "wheel" "video" ];
     shell = pkgs.zsh;
     hashedPassword = "$6$l.Iq4TwwIvD1mJYe$fLTqDXUFMWsZQTzUxVjW3QMp3yHghc8M4V86p272O3MFa6Ovk1x1ryOgW1TRp8c2/UeGwZJzwx2ckg.ALKzdH/";
   };

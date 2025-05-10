@@ -9,6 +9,10 @@ self: super:
       name = "vim-copilot";
       src = inputs.vim-copilot;
     };
+    nvim-codecompanion = vimUtils.buildVimPlugin {
+      name = "nvim-codecompanion";
+      src = inputs.nvim-codecompanion;
+    };
 
     nvim-plenary = vimUtils.buildVimPlugin {
       name = "nvim-plenary";
@@ -158,6 +162,46 @@ self: super:
     nvim-tmux-navigator = vimUtils.buildVimPlugin {
       name = "nvim-tmux-navigator";
       src = inputs.nvim-tmux-navigator;
+    };
+
+    nvim-trouble = vimUtils.buildVimPlugin {
+      name = "nvim-trouble";
+      src = inputs.nvim-trouble;
+    };
+
+    nvim-flutter-tools = vimUtils.buildVimPlugin {
+      name = "nvim-flutter-tools";
+      src = inputs.nvim-flutter-tools;
+    };
+
+    nvim-gitsigns = vimUtils.buildVimPlugin {
+      name = "nvim-gitsigns";
+      src = inputs.nvim-gitsigns;
+    };
+
+    nvim-fzf-lua = vimUtils.buildVimPlugin {
+      name = "nvim-fzf-lua";
+      src = inputs.nvim-fzf-lua;
+    };
+
+    nvim-octo = vimUtils.buildVimPlugin {
+      name = "nvim-octo";
+      src = inputs.nvim-octo;
+    };
+
+    nvim-nyoom = vimUtils.buildVimPlugin {
+      name = "nvim-nyoom";
+      src = inputs.nvim-nyoom;
+    };
+
+    nvim-spaceduck = vimUtils.buildVimPlugin {
+      name = "nvim-spaceduck";
+      src = inputs.nvim-spaceduck;
+    };
+
+    nvim-treesitter-context = vimUtils.buildVimPlugin {
+      name = "nvim-treesitter-context";
+      src = inputs.nvim-treesitter-context;
     };
     #
     # vim-cue = vimUtils.buildVimPlugin {

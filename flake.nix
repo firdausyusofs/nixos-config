@@ -5,7 +5,7 @@
     # Pin our primary nixpkgs repository. This is the main nixpkgs repository
     # we'll use for our configurations. Be very careful changing this because
     # it'll impact your entire system.
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     # We use the unstable nixpkgs repo for some packages.
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -19,7 +19,7 @@
     nix-snapd.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -31,13 +31,13 @@
     # I think technically you're not supposed to override the nixpkgs
     # used by neovim but recently I had failures if I didn't pin to my
     # own. We can always try to remove that anytime.
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    #
-    #   # Only need unstable until the lpeg fix hits mainline, probably
-    #   # not very long... can safely switch back for 23.11.
-    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+
+      # Only need unstable until the lpeg fix hits mainline, probably
+      # not very long... can safely switch back for 23.11.
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
 
     ghostty = {
       url = "github:ghostty-org/ghostty";
@@ -51,11 +51,13 @@
     rust.url = "github:oxalica/rust-overlay";
 
     # Non-flakes
+    nvim-codecompanion.url = "github:olimorris/codecompanion.nvim";
+    nvim-codecompanion.flake = false;
     nvim-cinnamon.url = "github:declancm/cinnamon.nvim";
     nvim-cinnamon.flake = false;
     nvim-conform.url = "github:stevearc/conform.nvim/v5.2.1";
     nvim-conform.flake = false;
-    nvim-treesitter.url = "github:nvim-treesitter/nvim-treesitter/v0.9.3";
+    nvim-treesitter.url = "github:nvim-treesitter/nvim-treesitter";
     nvim-treesitter.flake = false;
     vim-copilot.url = "github:github/copilot.vim/v1.32.0";
     vim-copilot.flake = false;
@@ -148,6 +150,46 @@
 
     nvim-tmux-navigator = {
       url = "github:christoomey/vim-tmux-navigator";
+      flake = false;
+    };
+
+    nvim-trouble = {
+      url = "github:folke/trouble.nvim";
+      flake = false;
+    };
+
+    nvim-flutter-tools = {
+      url = "github:akinsho/flutter-tools.nvim";
+      flake = false;
+    };
+
+    nvim-gitsigns = {
+      url = "github:lewis6991/gitsigns.nvim";
+      flake = false;
+    };
+
+    nvim-fzf-lua = {
+      url = "github:ibhagwan/fzf-lua";
+      flake = false;
+    };
+
+    nvim-octo = {
+      url = "github:pwntester/octo.nvim";
+      flake = false;
+    };
+    
+    nvim-nyoom = {
+      url = "github:nyoom-engineering/nyoom.nvim";
+      flake = false;
+    };
+
+    nvim-spaceduck = {
+      url = "github:pineapplegiant/spaceduck";
+      flake = false;
+    };
+
+    nvim-treesitter-context = {
+      url = "github:nvim-treesitter/nvim-treesitter-context";
       flake = false;
     };
   };

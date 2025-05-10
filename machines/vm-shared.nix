@@ -4,6 +4,7 @@
   imports = [
     ../modules/specialization/plasma.nix
     ../modules/specialization/i3.nix
+    ../modules/specialization/hyprland.nix
   ];
 
   # Be careful updating this.
@@ -72,6 +73,8 @@
     };
   };
 
+  hardware.graphics.enable = true;
+
   # sound.enable = true;
   # hardware.pulseaudio.enable = true;
 
@@ -103,9 +106,10 @@
     gnumake
     killall
     niv
-    rxvt_unicode
+    rxvt-unicode-unwrapped
     xclip
     alsa-utils
+    glxinfo
 
     # For hypervisors that support auto-resizing, this script forces it.
     # I've noticed not everyone listens to the udev events so this is a hack.
@@ -156,15 +160,15 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
 
-  services.picom = {
-    enable = true;
-    fade = true;
-    # vSync = true;
-    shadow = true;
-    fadeDelta = 4 ;
-    inactiveOpacity = 1;
-    activeOpacity = 1;
-    backend = "glx";
+  # services.picom = {
+  #   enable = true;
+  #   fade = true;
+  #   # vSync = true;
+  #   shadow = true;
+  #   fadeDelta = 4 ;
+  #   inactiveOpacity = 1;
+  #   activeOpacity = 1;
+  #   backend = "glx";
     # settings = {
     #   blur = {
     #     method = "dual_kawase";
@@ -172,5 +176,5 @@
     #     strength = 5;
     #   };
     # };
-  };
+  # };
 }
