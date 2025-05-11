@@ -73,7 +73,14 @@
     };
   };
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      libva
+      libva-utils
+      libva-vdpau-driver
+    ];
+  };
 
   # sound.enable = true;
   # hardware.pulseaudio.enable = true;
@@ -160,21 +167,21 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "20.09"; # Did you read the comment?
 
-  # services.picom = {
-  #   enable = true;
-  #   fade = true;
-  #   # vSync = true;
-  #   shadow = true;
-  #   fadeDelta = 4 ;
-  #   inactiveOpacity = 1;
-  #   activeOpacity = 1;
-  #   backend = "glx";
-    # settings = {
-    #   blur = {
-    #     method = "dual_kawase";
-    #     # background = true;
-    #     strength = 5;
-    #   };
-    # };
-  # };
+  services.picom = {
+    enable = true;
+    fade = true;
+    # vSync = true;
+    shadow = true;
+    fadeDelta = 4 ;
+    inactiveOpacity = 1;
+    activeOpacity = 1;
+    backend = "glx";
+    settings = {
+      blur = {
+        method = "dual_kawase";
+        # background = true;
+        strength = 8;
+      };
+    };
+  };
 }

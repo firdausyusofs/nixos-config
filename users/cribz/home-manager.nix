@@ -101,6 +101,8 @@ in {
 
     pkgs.odin
     pkgs.clang-tools
+
+    pkgs.tree-sitter
     # pkgs.clang
     # (lib.hiPrio pkgs.dart)
   ]);

@@ -57,6 +57,15 @@
          # DBUS_SESSION_BUS_ADDRESS = "unix:path=/run/user/${pkgs.lib.getUserId "greeter"}/bus"; # Set DBUS session bus address
       };
 
+      environment.etc."drirc".text = ''
+        <driconf>
+          <device>
+            <application name="default">
+            </application>
+          </device>
+        </driconf>
+      '';
+
       # 5. Display Manager (Choose ONE or none for TTY login)
       services.xserver = {
         enable = true; # Usually needed even for Wayland DMs for setup/services
