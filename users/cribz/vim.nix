@@ -12,18 +12,21 @@ self: super:
     nvim-codecompanion = vimUtils.buildVimPlugin {
       name = "nvim-codecompanion";
       src = inputs.nvim-codecompanion;
+      doCheck = false;
     };
 
     nvim-plenary = vimUtils.buildVimPlugin {
       name = "nvim-plenary";
       src = inputs.nvim-plenary;
       buildPhase = ":";
+      doCheck = false;
     };
 
     nvim-telescope = vimUtils.buildVimPlugin {
       name = "nvim-telescope";
       src = inputs.nvim-telescope;
       buildPhase = ":";
+      doCheck = false;
     };
 
     nvim-telescope-fzf-native = vimUtils.buildVimPlugin {
@@ -40,12 +43,14 @@ self: super:
     nvim-refactoring = vimUtils.buildVimPlugin {
       name = "nvim-refactoring";
       src = inputs.nvim-refactoring;
+      doCheck = false;
     };
 
     nvim-lspconfig = vimUtils.buildVimPlugin {
       name = "nvim-lspconfig";
       src = inputs.nvim-lspconfig;
       buildPhase = ":";
+      doCheck = false;
     };
 
     vim-fugitive = vimUtils.buildVimPlugin {
@@ -82,6 +87,7 @@ self: super:
     nvim-config = vimUtils.buildVimPlugin {
       name = "nvim-config";
       src = inputs.nvim-config;
+      doCheck = false;
     };
 
     nvim-oil = vimUtils.buildVimPlugin {
@@ -97,16 +103,19 @@ self: super:
     nvim-cmp = vimUtils.buildVimPlugin {
       name = "nvim-cmp";
       src = inputs.nvim-cmp;
+      doCheck = false;
     };
 
     nvim-cmp-nvim-lsp = vimUtils.buildVimPlugin {
       name = "nvim-cmp-nvim-lsp";
       src = inputs.nvim-cmp-nvim-lsp;
+      doCheck = false;
     };
 
     nvim-cmp-path = vimUtils.buildVimPlugin {
       name = "nvim-cmp-path";
       src = inputs.nvim-cmp-path;
+      doCheck = false;
     };
 
     nvim-friendly-snippets = vimUtils.buildVimPlugin {
@@ -122,11 +131,13 @@ self: super:
     nvim-luasnip = vimUtils.buildVimPlugin {
       name = "nvim-luasnip";
       src = inputs.nvim-luasnip;
+      doCheck = false;
     };
 
     nvim-cmp-luasnip = vimUtils.buildVimPlugin {
       name = "nvim-cmp-luasnip";
       src = inputs.nvim-cmp-luasnip;
+      doCheck = false;
     };
 
     nvim-conform = vimUtils.buildVimPlugin {
@@ -172,6 +183,7 @@ self: super:
     nvim-trouble = vimUtils.buildVimPlugin {
       name = "nvim-trouble";
       src = inputs.nvim-trouble;
+      doCheck = false;
     };
 
     nvim-flutter-tools = vimUtils.buildVimPlugin {
@@ -192,6 +204,7 @@ self: super:
     nvim-octo = vimUtils.buildVimPlugin {
       name = "nvim-octo";
       src = inputs.nvim-octo;
+      doCheck = false;
     };
 
     nvim-nyoom = vimUtils.buildVimPlugin {
@@ -207,11 +220,13 @@ self: super:
     nvim-treesitter-context = vimUtils.buildVimPlugin {
       name = "nvim-treesitter-context";
       src = inputs.nvim-treesitter-context;
+      doCheck = false;
     };
 
     nvim-spectre = vimUtils.buildVimPlugin {
       name = "nvim-spectre";
       src = inputs.nvim-spectre;
+      doCheck = false;
     };
     #
     # vim-cue = vimUtils.buildVimPlugin {

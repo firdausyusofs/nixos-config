@@ -80,7 +80,6 @@ in {
     pkgs.gcc
     pkgs.libglvnd
     pkgs.mesa
-    pkgs.mesa.drivers
     pkgs.xorg.libXi.dev        # X Input extension
     pkgs.xorg.libXcursor.dev   # X cursor management
     pkgs.xorg.libXrandr.dev    # RandR extension
@@ -96,11 +95,10 @@ in {
     pkgs.zoxide
     pkgs.sesh
 
-    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" "Iosevka" "Meslo" ]; })
-    # pkgs.nerd-fonts.jetbrains-mono
-    # pkgs.nerd-fonts.fira-code
-    # pkgs.nerd-fonts.iosevka
-    # pkgs.nerd-fonts.meslo-lg
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.iosevka
+    pkgs.nerd-fonts.meslo-lg
 
     # pkgs.lxappearance
 
@@ -296,7 +294,7 @@ in {
       enable = true;
     };
 
-    initExtra = ''
+    initContent = ''
       export PATH=$HOME/.cargo/bin:$PATH
       eval "$(zoxide init zsh)"
     '';
@@ -475,11 +473,11 @@ in {
       # customVim.nvim-cinnamon
       customVim.nvim-comment
       customVim.nvim-cmp
+      customVim.nvim-luasnip
       customVim.nvim-cmp-nvim-lsp
       customVim.nvim-cmp-path
       customVim.nvim-friendly-snippets
       customVim.nvim-lspkind
-      customVim.nvim-luasnip
       customVim.nvim-cmp-luasnip
       customVim.nvim-conform
       customVim.nvim-lspconfig
