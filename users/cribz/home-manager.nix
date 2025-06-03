@@ -65,6 +65,8 @@ in {
     pkgs.cachix
     pkgs.tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [
+    (pkgs.writeShellScriptBin "tmux-sessionizer" (builtins.readFile ./tmux-sessionizer))
+
     pkgs.chromium
     pkgs.firefox
     pkgs.rofi
@@ -91,9 +93,20 @@ in {
     pkgs.wayland-protocols
     pkgs.openssl.dev
 
+    pkgs.zoxide
+    pkgs.sesh
+
+    (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "FiraCode" "Iosevka" "Meslo" ]; })
+    # pkgs.nerd-fonts.jetbrains-mono
+    # pkgs.nerd-fonts.fira-code
+    # pkgs.nerd-fonts.iosevka
+    # pkgs.nerd-fonts.meslo-lg
+
     # pkgs.lxappearance
 
     pkgs.nodePackages.pnpm
+
+    inputs.zen-browser.packages."${pkgs.system}".default
 
     # pkgs.gtk3
 
@@ -103,6 +116,8 @@ in {
     pkgs.clang-tools
 
     pkgs.tree-sitter
+    pkgs.sourcekit-lsp
+    pkgs.swift
     # pkgs.clang
     # (lib.hiPrio pkgs.dart)
   ]);
@@ -124,11 +139,20 @@ in {
   home.file.".gdbinit".source = ./gdbinit;
   home.file.".inputrc".source = ./inputrc;
 
+  home.file.".tmux/plugins/tpm".source = pkgs.fetchFromGitHub {
+    owner = "tmux-plugins";
+    repo = "tpm";
+    rev = "v3.1.0";
+    sha256 = "sha256-CeI9Wq6tHqV68woE11lIY4cLoNY8XWyXyMHTDmFKJKI=";
+  };
+
   xdg.configFile = {
-    "i3/config".text = builtins.readFile ./i3;
+    "i3/config".text = builtins.readFile ./i3-new;
     "rofi/config.rasi".text = builtins.readFile ./rofi;
     "hypr/hyprland.conf".text = builtins.readFile ./hyprland;
     "hypr/hyprpaper.conf".text = builtins.readFile ./hyprpaper;
+    "polybar".source = ./polybar;
+    
 
     # tree-sitter parsers
     # "nvim/parser/proto.so".source = "${pkgs.tree-sitter-proto}/parser";
@@ -148,6 +172,22 @@ in {
   #---------------------------------------------------------------------
   # Programs
   #---------------------------------------------------------------------
+
+  # stylix.enable = true;
+  # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  # # stylix.image = ./wallpapers/mywall.jpg;
+  # stylix.polarity = "dark";
+  #
+  # stylix.fonts = {
+  #   monospace = {
+  #     package = pkgs.ubuntu_font_family;
+  #     name = "Ubuntu Mono";
+  #   };
+  #   sansSerif = {
+  #     package = pkgs.ubuntu_font_family;
+  #     name = "Ubuntu";
+  #   };
+  # };
 
   programs.gpg.enable = !isDarwin;
 
@@ -245,7 +285,8 @@ in {
 
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "z" ];
+      #plugins = [ "git" "z" ];
+      plugins = [ "git" ];
       theme = "robbyrussell";
     };
 
@@ -257,6 +298,7 @@ in {
 
     initExtra = ''
       export PATH=$HOME/.cargo/bin:$PATH
+      eval "$(zoxide init zsh)"
     '';
   };
 
@@ -299,9 +341,16 @@ in {
     extraConfig = ''
       set -ga terminal-overrides ",*256col*:Tc"
 
-      set -g @dracula-show-battery false
-      set -g @dracula-show-network false
-      set -g @dracula-show-weather false
+      set-option -g renumber-windows on
+      set -g base-index 1
+      setw -g pane-base-index 1
+
+      # set -g @dracula-show-battery false
+      # set -g @dracula-show-network false
+      # set -g @dracula-show-weather false
+
+      set -g @plugin 'vaaleyard/tmux-dotbar'
+      set -g @tmux-dotbar-right true
 
       unbind r
       bind r source-file ~/.config/tmux/tmux.conf
@@ -319,8 +368,28 @@ in {
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi y send-keys -X copy-selection
 
+      bind-key -r f run-shell "tmux neww "tmux-sessionizer""
+      bind-key -r W run-shell "tmux-sessionizer /host/carchingtech/Work"
+      bind-key -r C run-shell "tmux-sessionizer /host/carchingtech/ghq/github.com/carching-co"
+
+      bind-key "T" run-shell "sesh connect \"$(
+        sesh list --icons | fzf-tmux -p 80%,70% \
+          --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
+          --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
+          --bind 'tab:down,btab:up' \
+          --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
+          --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
+          --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
+          --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
+          --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+          --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
+          --preview-window 'right:55%' \
+          --preview 'sesh preview {}'
+      )\""
+
       run-shell ${sources.tmux-pain-control}/pain_control.tmux
-      run-shell ${sources.tmux-dracula}/dracula.tmux
+
+      run '~/.tmux/plugins/tpm/tpm'
     '';
   };
 
@@ -378,6 +447,7 @@ in {
       rust-analyzer
       nodePackages.typescript-language-server
       gopls
+      # sourcekit-lsp
       # odin
       ols
     ];
@@ -391,6 +461,7 @@ in {
       # customVim.vim-cue
       # # customVim.vim-fish
       customVim.vim-fugitive
+      customVim.nvim-spectre
       # customVim.vim-glsl
       # customVim.vim-pgsql
       # customVim.vim-tla
@@ -400,6 +471,7 @@ in {
 
       customVim.vim-nord
       customVim.nvim-rosepine
+      customVim.nvim-gruvbox
       # customVim.nvim-cinnamon
       customVim.nvim-comment
       customVim.nvim-cmp
@@ -448,6 +520,7 @@ in {
         p.lua
         p.c
         p.dart
+        p.swift
       ]))
       # vimPlugins.nvim-treesitter.withAllGrammars
       # vimPlugins.typescript-vim

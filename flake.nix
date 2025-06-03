@@ -34,9 +34,11 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
 
+      inputs.neovim-flake.url = "github:neovim/neovim/v0.10.4?dir=contrib";
+
       # Only need unstable until the lpeg fix hits mainline, probably
       # not very long... can safely switch back for 23.11.
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     ghostty = {
@@ -44,6 +46,13 @@
 
       # inputs.nixpkgs-stable.follows = "nixpkgs";
       # inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+
+    stylix = {
+      url = "github:danth/stylix/release-24.11";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Other packages
@@ -77,7 +86,7 @@
       url = "github:ThePrimeagen/refactoring.nvim";
       flake = false;
     };
-    nvim-lspconfig.url = "github:neovim/nvim-lspconfig/v1.2.0";
+    nvim-lspconfig.url = "github:neovim/nvim-lspconfig/v2.1.0";
     nvim-lspconfig.flake = false;
     nvim-config.url = "github:firdausyusofs/nvim-config";
     nvim-config.flake = false;
@@ -192,9 +201,24 @@
       url = "github:nvim-treesitter/nvim-treesitter-context";
       flake = false;
     };
+
+    nvim-spectre = {
+      url = "github:nvim-pack/nvim-spectre";
+      flake = false;
+    };
+
+    nvim-gruvbox = {
+      url = "github:morhetz/gruvbox";
+      flake = false;
+    };
+
+    tmux-dotbar = {
+      url = "github:vaaleyard/tmux-dotbar";
+      flake = false;
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ghostty, ... }@inputs: let
+  outputs = { self, nixpkgs, home-manager, darwin, ghostty, zen-browser, stylix, ... }@inputs: let
     # Overlays is the list of overlays we want to apply from flake inputs.
     overlays = [
       inputs.zig.overlays.default
@@ -202,7 +226,7 @@
     ];
 
     mkSystem = import ./lib/mksystem.nix {
-      inherit overlays nixpkgs inputs;
+      inherit overlays nixpkgs inputs stylix;
     };
   in {
     nixosConfigurations.vm-aarch64 = mkSystem "vm-aarch64" {

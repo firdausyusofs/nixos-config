@@ -112,7 +112,7 @@
         # Core Hyprland ecosystem
         waybar          # Status bar
         wofi            # Application launcher (Wayland native Rofi fork)
-        dolphin         # File manager (Wayland native)
+        kdePackages.dolphin         # File manager (Wayland native)
         # rofi-wayland  # Alternative Wayland Rofi
         wl-clipboard    # Wayland clipboard utilities (wl-copy/wl-paste)
         wlogout         # Wayland logout menu

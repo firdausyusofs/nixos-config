@@ -159,6 +159,11 @@ self: super:
       src = inputs.nvim-rosepine;
     };
 
+    nvim-gruvbox = vimUtils.buildVimPlugin {
+      name = "nvim-gruvbox";
+      src = inputs.nvim-gruvbox;
+    };
+
     nvim-tmux-navigator = vimUtils.buildVimPlugin {
       name = "nvim-tmux-navigator";
       src = inputs.nvim-tmux-navigator;
@@ -202,6 +207,11 @@ self: super:
     nvim-treesitter-context = vimUtils.buildVimPlugin {
       name = "nvim-treesitter-context";
       src = inputs.nvim-treesitter-context;
+    };
+
+    nvim-spectre = vimUtils.buildVimPlugin {
+      name = "nvim-spectre";
+      src = inputs.nvim-spectre;
     };
     #
     # vim-cue = vimUtils.buildVimPlugin {

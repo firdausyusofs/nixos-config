@@ -103,6 +103,7 @@
     packages = [
       pkgs.fira-code
       pkgs.jetbrains-mono
+      pkgs.material-design-icons
     ];
   };
 

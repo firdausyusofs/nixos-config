@@ -47,5 +47,9 @@
     environment.variables = {
       XCURSOR_SIZE = "128";
     };
+
+    environment.systemPackages = with pkgs; [
+      polybar
+    ];
   };
 }
