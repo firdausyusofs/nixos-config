@@ -1,6 +1,7 @@
 ! URXVT FONT SETTINGS
 !------------------------------------------------
-Xft.dpi: 180
+! Xft.dpi: 180
+Xft.dpi: 86
 Xft.autohint: true
 Xft.antialias: true
 Xft.hinting: true

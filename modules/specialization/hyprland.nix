@@ -75,6 +75,7 @@
           enable = true;
           wayland = true; # Explicitly enable Wayland sessions
         };
+        videoDrivers = [ "modesetting" ];
         desktopManager.gnome.enable = false; # Disable GNOME DE if enabled globally
 
         # Option B: SDDM (Needs explicit Wayland enablement)

@@ -171,21 +171,21 @@ in {
   # Programs
   #---------------------------------------------------------------------
 
-  # stylix.enable = true;
-  # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-  # # stylix.image = ./wallpapers/mywall.jpg;
-  # stylix.polarity = "dark";
-  #
-  # stylix.fonts = {
-  #   monospace = {
-  #     package = pkgs.ubuntu_font_family;
-  #     name = "Ubuntu Mono";
-  #   };
-  #   sansSerif = {
-  #     package = pkgs.ubuntu_font_family;
-  #     name = "Ubuntu";
-  #   };
-  # };
+  stylix.enable = true;
+  stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  # stylix.image = ./wallpapers/mywall.jpg;
+  stylix.polarity = "dark";
+
+  stylix.fonts = {
+    monospace = {
+      package = pkgs.ubuntu_font_family;
+      name = "Ubuntu Mono";
+    };
+    sansSerif = {
+      package = pkgs.ubuntu_font_family;
+      name = "Ubuntu";
+    };
+  };
 
   programs.gpg.enable = !isDarwin;
 
@@ -559,7 +559,8 @@ in {
     package = pkgs.vanilla-dmz;
     x11.enable = true;
     gtk.enable = true;
-    size = 128;
+    # size = 128;
+    size = 60;
   };
 
   # gtk = {

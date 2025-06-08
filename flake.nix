@@ -249,6 +249,11 @@
       user   = "cribz";
     };
 
+    nixosConfigurations.pc = mkSystem "pc" rec {
+      system = "x86_64-linux";
+      user   = "cribz";
+    };
+
     nixosConfigurations.wsl = mkSystem "wsl" {
       system = "x86_64-linux";
       user   = "cribz";

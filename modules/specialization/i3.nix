@@ -12,8 +12,10 @@
     services.xserver = {
       enable = true;
       xkb.layout = "us";
-      dpi = 220;
+      # dpi = 220;
+      dpi = 96;
       upscaleDefaultCursor = true;
+      xkbOptions = "ctrl:nocaps";
 
       desktopManager = {
         xterm.enable = false;
