@@ -50,7 +50,7 @@ exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # No background
 #exec --no-startup-id xsetroot -solid $back
-exec --no-startup-id feh --bg-fill /home/cribz/Wallpapers/wallhaven-e8z3w8.png
+exec --no-startup-id feh --bg-fill /home/cribz/Wallpapers/gankutsuou.jpg
 # exec --no-startup-id feh --bg-fill /home/cribz/Wallpapers/poster.png
 
 exec_always "/home/cribz/.config/polybar/launch.sh"

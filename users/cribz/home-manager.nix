@@ -171,11 +171,38 @@ in {
   # Programs
   #---------------------------------------------------------------------
 
+  stylix = {
+    enable = true;
+    autoEnable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark.yaml";
+    #base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    # base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
+    image = /home/cribz/Wallpapers/gankutsuou.jpg;
+    polarity = "dark";
+
+    targets = {
+      ghostty.enable = true;
+      i3.enable = true;
+      neovim.enable = false;
+    };
+    
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrains Mono";
+      };
+      sansSerif = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrains Mono";
+      };
+    };
+  };
+
   # stylix.enable = true;
-  # stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
-  # # stylix.image = ./wallpapers/mywall.jpg;
+  # #stylix.base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  # stylix.image = /home/cribz/Wallpapers/wallhaven-e8z3w8.png;
   # stylix.polarity = "dark";
-  #
+
   # stylix.fonts = {
   #   monospace = {
   #     package = pkgs.ubuntu_font_family;
@@ -349,6 +376,11 @@ in {
 
       set -g @plugin 'vaaleyard/tmux-dotbar'
       set -g @tmux-dotbar-right true
+      set -g @tmux-dotbar-bg "#282828"
+      set -g @tmux-dotbar-fg "#7c6f64"
+      set -g @tmux-dotbar-fg-current "#ebdbb2"
+      set -g @tmux-dotbar-fg-session "#a89984"
+      set -g @tmux-dotbar-fg-prefix "#d3869b"
 
       unbind r
       bind r source-file ~/.config/tmux/tmux.conf
@@ -448,6 +480,7 @@ in {
       # sourcekit-lsp
       # odin
       ols
+      csharp-ls
     ];
 
     plugins = with pkgs; [

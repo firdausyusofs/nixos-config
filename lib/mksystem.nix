@@ -57,7 +57,7 @@ in systemFunc rec {
         inputs = inputs;
       };
     }
-    # stylix.nixosModules.stylix
+    stylix.nixosModules.stylix
 
     # We expose some extra arguments so that our modules can parameterize
     # better based on these values.
