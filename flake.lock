@@ -945,11 +945,11 @@
     "nvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1749085731,
-        "narHash": "sha256-H/nVk4Bqzz/yEDudyVv6EApp/vdwGQd7gbuh7pc2VxM=",
+        "lastModified": 1750320702,
+        "narHash": "sha256-X9qXgWIfwf6XqfXkN5iDUVn4vcGzw4JQUMFfBiVFOkQ=",
         "owner": "firdausyusofs",
         "repo": "nvim-config",
-        "rev": "a4486c6dd8aa293370e770d3a423d3a91759b499",
+        "rev": "de3efec2dead859d69ea62447177453cb61f2eee",
         "type": "github"
       },
       "original": {
