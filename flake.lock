@@ -945,11 +945,11 @@
     "nvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1750320702,
-        "narHash": "sha256-X9qXgWIfwf6XqfXkN5iDUVn4vcGzw4JQUMFfBiVFOkQ=",
+        "lastModified": 1750896122,
+        "narHash": "sha256-TF9qpFJM53i70Dbv0A4qp1QSLV7wwrUhcNQnCylfSao=",
         "owner": "firdausyusofs",
         "repo": "nvim-config",
-        "rev": "de3efec2dead859d69ea62447177453cb61f2eee",
+        "rev": "2404aa0187d3011e10d9c62fd9d41554d5b614ca",
         "type": "github"
       },
       "original": {
@@ -1252,6 +1252,22 @@
         "type": "github"
       }
     },
+    "nvim-supermaven": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1728314930,
+        "narHash": "sha256-1z3WKIiikQqoweReUyK5O8MWSRN5y95qcxM6qzlKMME=",
+        "owner": "supermaven-inc",
+        "repo": "supermaven-nvim",
+        "rev": "07d20fce48a5629686aefb0a7cd4b25e33947d50",
+        "type": "github"
+      },
+      "original": {
+        "owner": "supermaven-inc",
+        "repo": "supermaven-nvim",
+        "type": "github"
+      }
+    },
     "nvim-telescope": {
       "flake": false,
       "locked": {
@@ -1402,6 +1418,7 @@
         "nvim-schemastore": "nvim-schemastore",
         "nvim-spaceduck": "nvim-spaceduck",
         "nvim-spectre": "nvim-spectre",
+        "nvim-supermaven": "nvim-supermaven",
         "nvim-telescope": "nvim-telescope",
         "nvim-telescope-fzf-native": "nvim-telescope-fzf-native",
         "nvim-telescope-ui-select": "nvim-telescope-ui-select",

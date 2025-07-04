@@ -281,6 +281,9 @@ bindsym $mod+r mode "$mode_resize"
 for_window [class=".*"] border normal 2
 # gaps inner 5
 # gaps outer 5
+workspace 5 gaps horizontal 150
+workspace 5 gaps vertical 50
+workspace 5 gaps inner 10
 
 # increase gaps
 bindsym $mod+p gaps inner current plus 5; gaps outer current plus 5

@@ -216,6 +216,11 @@
       url = "github:vaaleyard/tmux-dotbar";
       flake = false;
     };
+
+    nvim-supermaven = {
+      url = "github:supermaven-inc/supermaven-nvim";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, darwin, ghostty, zen-browser, stylix, ... }@inputs: let

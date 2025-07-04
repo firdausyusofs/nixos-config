@@ -24,7 +24,7 @@ ifeq ($(UNAME), Darwin)
 	nix build --extra-experimental-features nix-command --extra-experimental-features flakes ".#darwinConfigurations.${NIXNAME}.system"
 	./result/sw/bin/darwin-rebuild switch --flake "$$(pwd)#${NIXNAME}"
 else
-	sudo NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --specialisation ${SPECIALIZATION} --impure --flake ".#${NIXNAME}"
+	sudo NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild switch --impure --flake ".#${NIXNAME}"
 endif
 
 test:
@@ -32,7 +32,7 @@ ifeq ($(UNAME), Darwin)
 	nix build ".#darwinConfigurations.${NIXNAME}.system"
 	./result/sw/bin/darwin-rebuild test --flake "$$(pwd)#${NIXNAME}"
 else
-	sudo NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild test --specialisation ${SPECIALIZATION} --impure --flake ".#$(NIXNAME)"
+	sudo NIXPKGS_ALLOW_UNFREE=1 NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nixos-rebuild test --impure --flake ".#$(NIXNAME)"
 endif
 
 # This builds the given NixOS configuration and pushes the results to the

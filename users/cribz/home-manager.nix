@@ -99,6 +99,7 @@ in {
     pkgs.nerd-fonts.fira-code
     pkgs.nerd-fonts.iosevka
     pkgs.nerd-fonts.meslo-lg
+    pkgs.nerd-fonts.zed-mono
 
     # pkgs.lxappearance
 
@@ -109,6 +110,7 @@ in {
     # pkgs.gtk3
 
     pkgs.yazi
+    pkgs.unzip
 
     pkgs.odin
     pkgs.clang-tools
@@ -484,7 +486,7 @@ in {
     ];
 
     plugins = with pkgs; [
-      customVim.vim-copilot
+      #customVim.vim-copilot
       customVim.nvim-codecompanion
       customVim.nvim-config
       customVim.nvim-oil
@@ -530,6 +532,7 @@ in {
       customVim.nvim-octo
       customVim.nvim-nyoom
       customVim.nvim-spaceduck
+      customVim.nvim-supermaven
       # customVim.nvim-flutter-tools
       # customVim.nvim-treesitter-playground
       # customVim.nvim-treesitter-textobjects
@@ -588,11 +591,15 @@ in {
 
   # Make cursor not tiny on HiDPI screens
   home.pointerCursor = lib.mkIf (isLinux && !isWSL) {
-    name = "Vanilla-DMZ";
-    package = pkgs.vanilla-dmz;
+    # name = "Vanilla-DMZ";
+    # package = pkgs.vanilla-dmz;
+    # name = "Bibata-Modern-Ice";
+    # package = pkgs.bibata-cursors;
+    name = "phinger-cursors-dark";
+    package = pkgs.phinger-cursors;
     x11.enable = true;
     gtk.enable = true;
-    size = 128;
+    size = 48;
   };
 
   # gtk = {

@@ -228,6 +228,12 @@ self: super:
       src = inputs.nvim-spectre;
       doCheck = false;
     };
+
+    nvim-supermaven = vimUtils.buildVimPlugin {
+      name = "nvim-supermaven";
+      src = inputs.nvim-supermaven;
+      doCheck = false;
+    };
     #
     # vim-cue = vimUtils.buildVimPlugin {
     #   name = "vim-cue";
