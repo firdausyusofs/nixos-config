@@ -2,7 +2,9 @@ font-size = 12
 # font-family = JetBrains Mono
 # font-family = Iosevka Nerd Font Mono
 # background-opacity = 1.0
-font-family = ZedMono Nerd Font Mono
+# font-family = ZedMono Nerd Font Mono
+# font-family = IBM Plex Mono
+font-family = Berkeley Mono Trial
 background-opacity = 0.7
 #background-blur-radius = 20
 macos-non-native-fullscreen = visible-menu
@@ -19,7 +21,12 @@ theme = GruvboxDark
 shell-integration = zsh
 shell-integration-features = no-cursor,no-title
 window-inherit-working-directory = true
-window-decoration = false
+gtk-titlebar = false
+# gtk-adwaita = false
+window-decoration = server
+
+clipboard-read = allow
+clipboard-write = allow
 
 # command=tmux attach || tmux
 command=tmux

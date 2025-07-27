@@ -66,6 +66,7 @@ in {
     pkgs.tailscale
   ]) ++ (lib.optionals (isLinux && !isWSL) [
     (pkgs.writeShellScriptBin "tmux-sessionizer" (builtins.readFile ./tmux-sessionizer))
+    (pkgs.writeShellScriptBin "sesh-picker" (builtins.readFile ./sesh-picker.sh))
 
     pkgs.chromium
     pkgs.firefox
@@ -100,6 +101,7 @@ in {
     pkgs.nerd-fonts.iosevka
     pkgs.nerd-fonts.meslo-lg
     pkgs.nerd-fonts.zed-mono
+    pkgs.ibm-plex
 
     # pkgs.lxappearance
 
@@ -112,12 +114,21 @@ in {
     pkgs.yazi
     pkgs.unzip
 
+    pkgs.openjdk
+
     pkgs.odin
     pkgs.clang-tools
+
+    pkgs.ocaml
+    pkgs.opam
+    pkgs.dune_3
 
     pkgs.tree-sitter
     pkgs.sourcekit-lsp
     pkgs.swift
+    pkgs.swiftpm
+    pkgs.binutils
+    # pkgs.libclang
     # pkgs.clang
     # (lib.hiPrio pkgs.dart)
   ]);
@@ -128,6 +139,8 @@ in {
 
   home.sessionVariables = {
     # LD_LIBRARY_PATH=${pkgs.xorg.libX11}/lib:${pkgs.xorg.libXrandr}/lib:${pkgs.xorg.libXinerama}/lib:${pkgs.xorg.libXcursor}/lib:${pkgs.xorg.libXi}/lib:${pkgs.raylib}/lib:${pkgs.mesa}/lib:${pkgs.libglvnd}/lib:$LD_LIBRARY_PATH
+    LIBRARY_PATH = "${pkgs.gcc.cc.lib}/lib:${pkgs.glibc}/lib";
+    SOURCEKIT_LOGGING = "1";
     LANG = "en_US.UTF-8";
     LC_CTYPE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
@@ -404,20 +417,7 @@ in {
       bind-key -r W run-shell "tmux-sessionizer /host/carchingtech/Work"
       bind-key -r C run-shell "tmux-sessionizer /host/carchingtech/ghq/github.com/carching-co"
 
-      bind-key "T" run-shell "sesh connect \"$(
-        sesh list --icons | fzf-tmux -p 80%,70% \
-          --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
-          --header '  ^a all ^t tmux ^g configs ^x zoxide ^d tmux kill ^f find' \
-          --bind 'tab:down,btab:up' \
-          --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
-          --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
-          --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
-          --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
-          --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
-          --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
-          --preview-window 'right:55%' \
-          --preview 'sesh preview {}'
-      )\""
+      bind-key "T" run-shell "sesh-picker"
 
       run-shell ${sources.tmux-pain-control}/pain_control.tmux
 
@@ -476,6 +476,7 @@ in {
       pyright
       nodePackages.intelephense 
       zls
+      jdt-language-server
       rust-analyzer
       nodePackages.typescript-language-server
       gopls
@@ -533,6 +534,8 @@ in {
       customVim.nvim-nyoom
       customVim.nvim-spaceduck
       customVim.nvim-supermaven
+      customVim.nvim-harpoon
+      customVim.nvim-colorbuddy
       # customVim.nvim-flutter-tools
       # customVim.nvim-treesitter-playground
       # customVim.nvim-treesitter-textobjects
@@ -595,11 +598,16 @@ in {
     # package = pkgs.vanilla-dmz;
     # name = "Bibata-Modern-Ice";
     # package = pkgs.bibata-cursors;
-    name = "phinger-cursors-dark";
-    package = pkgs.phinger-cursors;
+    # name = "phinger-cursors-dark";
+    # package = pkgs.phinger-cursors;
+    name = "MacOS-Tahoe-Cursor";
+    package = pkgs.runCommand "MacOS-Tahoe-Cursor" {} ''
+      mkdir -p $out/share/icons
+      cp -r ${/home/cribz/Downloads/MacOS-Tahoe-Cursor/MacOS-Tahoe-Cursor} $out/share/icons/MacOS-Tahoe-Cursor
+    '';
     x11.enable = true;
     gtk.enable = true;
-    size = 48;
+    size = 56;
   };
 
   # gtk = {

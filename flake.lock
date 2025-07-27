@@ -926,6 +926,22 @@
         "type": "github"
       }
     },
+    "nvim-colorbuddy": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1715200069,
+        "narHash": "sha256-YanO/e4jlm/k5VSnMDGQ7PnWKuj+ADifg0UsZvbbkKA=",
+        "owner": "tjdevries",
+        "repo": "colorbuddy.nvim",
+        "rev": "8b968581e5c19d22a861d5f3fe5dbd83394fa681",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tjdevries",
+        "repo": "colorbuddy.nvim",
+        "type": "github"
+      }
+    },
     "nvim-comment": {
       "flake": false,
       "locked": {
@@ -945,11 +961,11 @@
     "nvim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1750896122,
-        "narHash": "sha256-TF9qpFJM53i70Dbv0A4qp1QSLV7wwrUhcNQnCylfSao=",
+        "lastModified": 1753643710,
+        "narHash": "sha256-h13DD1ObOHw3bWxBsCtRtInWHX4yU9Ivf70esXiu7r8=",
         "owner": "firdausyusofs",
         "repo": "nvim-config",
-        "rev": "2404aa0187d3011e10d9c62fd9d41554d5b614ca",
+        "rev": "f92a0c98beadab35d7c5a209b2ce536a20a7ab72",
         "type": "github"
       },
       "original": {
@@ -1055,6 +1071,23 @@
         "type": "github"
       }
     },
+    "nvim-harpoon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739222527,
+        "narHash": "sha256-L7FvOV6KvD58BnY3no5IudiKTdgkGqhpS85RoSxtl7U=",
+        "owner": "ThePrimeagen",
+        "repo": "harpoon",
+        "rev": "ed1f853847ffd04b2b61c314865665e1dadf22c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ThePrimeagen",
+        "ref": "harpoon2",
+        "repo": "harpoon",
+        "type": "github"
+      }
+    },
     "nvim-lspconfig": {
       "flake": false,
       "locked": {
@@ -1069,6 +1102,22 @@
         "owner": "neovim",
         "ref": "v2.1.0",
         "repo": "nvim-lspconfig",
+        "type": "github"
+      }
+    },
+    "nvim-lspcontainers": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721110848,
+        "narHash": "sha256-zXFs9T+P2cLCjkzIoQo1QhnyDafbLvaVmMMvZ8M12m0=",
+        "owner": "lspcontainers",
+        "repo": "lspcontainers.nvim",
+        "rev": "a162fda7f703b40175dfbdf51f7f0ed9a5a92379",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lspcontainers",
+        "repo": "lspcontainers.nvim",
         "type": "github"
       }
     },
@@ -1398,6 +1447,7 @@
         "nvim-cmp-nvim-lsp": "nvim-cmp-nvim-lsp",
         "nvim-cmp-path": "nvim-cmp-path",
         "nvim-codecompanion": "nvim-codecompanion",
+        "nvim-colorbuddy": "nvim-colorbuddy",
         "nvim-comment": "nvim-comment",
         "nvim-config": "nvim-config",
         "nvim-conform": "nvim-conform",
@@ -1406,7 +1456,9 @@
         "nvim-fzf-lua": "nvim-fzf-lua",
         "nvim-gitsigns": "nvim-gitsigns",
         "nvim-gruvbox": "nvim-gruvbox",
+        "nvim-harpoon": "nvim-harpoon",
         "nvim-lspconfig": "nvim-lspconfig",
+        "nvim-lspcontainers": "nvim-lspcontainers",
         "nvim-lspkind": "nvim-lspkind",
         "nvim-luasnip": "nvim-luasnip",
         "nvim-nyoom": "nvim-nyoom",

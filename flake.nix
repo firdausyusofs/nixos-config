@@ -221,6 +221,21 @@
       url = "github:supermaven-inc/supermaven-nvim";
       flake = false;
     };
+
+    nvim-harpoon = {
+      url = "github:ThePrimeagen/harpoon/harpoon2";
+      flake = false;
+    };
+
+    nvim-lspcontainers = {
+      url = "github:lspcontainers/lspcontainers.nvim";
+      flake = false;
+    };
+
+    nvim-colorbuddy = {
+      url = "github:tjdevries/colorbuddy.nvim";
+      flake = false;
+    };
   };
 
   outputs = { self, nixpkgs, home-manager, darwin, ghostty, zen-browser, stylix, ... }@inputs: let

@@ -105,6 +105,16 @@ in {
       pkgs.fira-code
       pkgs.jetbrains-mono
       pkgs.material-design-icons
+      (pkgs.stdenv.mkDerivation {
+        pname = "Berkeley-Mono";
+        version = "1.0.0";
+        src = /home/cribz/Downloads/2507237R56WY3ZV2/TX-02-6YR5N1ZK/BerkeleyMonoTrial-Fixed.otf;
+        phases = ["installPhase"];
+        installPhase = ''
+          mkdir -p $out/share/fonts/opentype
+          cp $src $out/share/fonts/opentype/Berkeley-Mono.ttf
+        '';
+      })
     ];
   };
 

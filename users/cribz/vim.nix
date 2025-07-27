@@ -234,6 +234,24 @@ self: super:
       src = inputs.nvim-supermaven;
       doCheck = false;
     };
+
+    nvim-harpoon = vimUtils.buildVimPlugin {
+      name = "nvim-harpoon";
+      src = inputs.nvim-harpoon;
+      doCheck = false;
+    };
+
+    nvim-lspcontainers = vimUtils.buildVimPlugin {
+      name = "nvim-lspcontainers";
+      src = inputs.nvim-lspcontainers;
+      doCheck = false;
+    };
+
+    nvim-colorbuddy = vimUtils.buildVimPlugin {
+      name = "nvim-colorbuddy";
+      src = inputs.nvim-colorbuddy;
+      doCheck = false;
+    };
     #
     # vim-cue = vimUtils.buildVimPlugin {
     #   name = "vim-cue";
