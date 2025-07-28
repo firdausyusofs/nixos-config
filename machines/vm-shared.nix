@@ -2,11 +2,12 @@
 
 let linuxGnome = false;
 in {
-  # imports = [
+  imports = [
   #   ../modules/specialization/plasma.nix
-  #   ../modules/specialization/i3.nix
+    ../modules/specialization/i3.nix
+    ../modules/specialization/awm.nix
   #   ../modules/specialization/hyprland.nix
-  # ];
+  ];
 
   # Be careful updating this.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -151,54 +152,61 @@ in {
   #   displayManager.gdm.enable = true;
   # };
 
-  xdg.portal = {
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "*";
-  };
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #   config.common.default = "*";
+  # };
 
-  services.xserver = if linuxGnome then {
+  # services.xserver = if linuxGnome then {
+  #   enable = true;
+  #   xkb.layout = "us";
+  #   desktopManager.gnome.enable = true;
+  #   displayManager.gdm.enable = true;
+  # } else {
+  #   enable = true;
+  #   xkb.layout = "us";
+  #   dpi = 220;
+  #
+  #   desktopManager = {
+  #     xterm.enable = false;
+  #     wallpaper.mode = "fill";
+  #   };
+  #
+  #   displayManager = {
+  #     defaultSession = "none+i3";
+  #     lightdm.enable = true;
+  #     lightdm.greeters.gtk.cursorTheme = {
+  #       # name = "Bibata-Modern-Ice";
+  #       # package = pkgs.bibata-cursors;
+  #       name = "phinger-cursors-dark";
+  #       package = pkgs.phinger-cursors;
+  #       size = 48;
+  #     };
+  #
+  #     # AARCH64: For now, on Apple Silicon, we must manually set the
+  #     # display resolution. This is a known issue with VMware Fusion.Add commentMore actions
+  #     sessionCommands = ''
+  #       ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name ${pkgs.phinger-cursors}/share/icons/capitaine-cursors/cursors/left_ptr &disown
+  #       ${pkgs.xorg.xset}/bin/xset r rate 200 40
+  #     '';
+  #   };
+  #
+  #   windowManager = {
+  #     i3.enable = true;
+  #   };
+  # };
+
+  services.xserver = lib.mkIf (config.specialisation != {}) {
     enable = true;
     xkb.layout = "us";
     desktopManager.gnome.enable = true;
     displayManager.gdm.enable = true;
-  } else {
-    enable = true;
-    xkb.layout = "us";
-    dpi = 220;
-
-    desktopManager = {
-      xterm.enable = false;
-      wallpaper.mode = "fill";
-    };
-
-    displayManager = {
-      defaultSession = "none+i3";
-      lightdm.enable = true;
-      lightdm.greeters.gtk.cursorTheme = {
-        # name = "Bibata-Modern-Ice";
-        # package = pkgs.bibata-cursors;
-        name = "phinger-cursors-dark";
-        package = pkgs.phinger-cursors;
-        size = 48;
-      };
-
-      # AARCH64: For now, on Apple Silicon, we must manually set the
-      # display resolution. This is a known issue with VMware Fusion.Add commentMore actions
-      sessionCommands = ''
-        ${pkgs.xorg.xsetroot}/bin/xsetroot -cursor_name ${pkgs.phinger-cursors}/share/icons/capitaine-cursors/cursors/left_ptr &disown
-        ${pkgs.xorg.xset}/bin/xset r rate 200 40
-      '';
-    };
-
-    windowManager = {
-      i3.enable = true;
-    };
   };
 
-  environment.variables = {
-    XCURSOR_SIZE = "48";
-  };
+  # environment.variables = {
+  #   XCURSOR_SIZE = "48";
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

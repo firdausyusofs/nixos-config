@@ -1,0 +1,164 @@
+--[[
+If it's obvious from the documentation that the table returns an array of a particular type, use the style of TYPE[], for example:
+
+---@field clients fun(self: Awesome.tag): table
+
+Should instead be:
+
+---@field clients fun(self: Awesome.tag): Awesome.client[]
+
+--]]
+
+---@meta
+
+---@class Awesome.screen
+---@field geometry table: The screen coordinates.
+---@field index integer: The internal screen number.
+---@field outputs table: A list of outputs for this screen and their size in mm.
+---@field workarea table: The screen workarea.
+---@field padding table: The screen padding.
+---@field clients Awesome.client[]: The list of visible clients for the screen.
+---@field hidden_clients Awesome.client[]: The list of clients assigned to the screen but not currently visible.
+---@field all_clients Awesome.client[]: All clients assigned to the screen.
+---@field tiled_clients Awesome.client[]: Tiled clients for the screen.
+---@field tags Awesome.tag[]: A list of all tags on the screen.
+---@field selected_tags Awesome.tag[]: A list of all selected tags on the screen.
+---@field selected_tag Awesome.tag: The first selected tag.
+---@field dpi number: The number of pixels per inch of the screen.
+---@field get_clients fun(self: Awesome.screen, stacked: boolean|nil): Awesome.client[]
+---@field get_all_clients fun(self: Awesome.screen, stacked: boolean|nil): Awesome.client[]
+---@field get_tiled_clients fun(self: Awesome.screen, stacked: boolean|nil): Awesome.client[]
+---@field set_auto_dpi_enabled fun(self: Awesome.screen, enabled: boolean): nil
+---@field connect_signal fun(self: Awesome.screen, name: string, func: fun()): nil
+---@field disconnect_signal fun(self: Awesome.screen, name: string, func: fun()): nil
+---@field emit_signal fun(self: Awesome.screen, name: string, ...): nil
+
+-- Signals (TODO)
+-- ["primary_changed"] fun(self: Awesome.screen): nil
+-- ["added"] fun(self: Awesome.screen): nil
+-- ["removed"] fun(self: Awesome.screen): nil
+-- ["list"] fun(self: Awesome.screen): nil
+-- ["swapped"] fun(self: Awesome.screen): nil
+-- ["tag::history::update"] fun(self: Awesome.screen): nil
+
+---@class Awesome.tag
+---@field name string: Tag name.
+---@field selected boolean: True if the tag is selected to be viewed.
+---@field activated boolean: True if the tag is active and can be used.
+---@field index integer: The tag index.
+---@field screen Awesome.screen: The tag screen.
+---@field master_width_factor number: The tag master width factor.
+---@field layout any: The tag client layout.
+---@field layouts any[]: The list of available layouts for this tag.
+---@field volatile boolean: Define if the tag must be deleted when the last client is untagged.
+---@field gap number: The gap (spacing, also called useless_gap) between clients.
+---@field gap_single_client boolean: Enable gaps for a single client.
+---@field master_fill_policy string: Set size fill policy for the master client(s).
+---@field master_count integer: Set the number of master windows.
+---@field icon any: Set the tag icon.
+---@field column_count integer: Set the number of columns.
+---@field clients fun(self: Awesome.tag): Awesome.client[]
+---@field delete fun(self: Awesome.tag, fallback_tag: Awesome.tag|nil, force: boolean|nil): nil
+---@field find_by_name fun(screen: Awesome.screen, name: string): Awesome.tag|nil
+---@field view_only fun(self: Awesome.tag): nil
+---@field connect_signal fun(self: Awesome.tag, signal: string, func: fun()): nil
+---@field disconnect_signal fun(self: Awesome.tag, signal: string, func: fun()): nil
+---@field emit_signal fun(self: Awesome.tag, signal: string, ...): nil
+
+-- Signals (TODO)
+-- ["request::select"] fun(self: Awesome.tag): nil
+-- ["tagged"] fun(self: Awesome.tag, client: Awesome.client): nil
+-- ["untagged"] fun(self: Awesome.tag, client: Awesome.client): nil
+-- ["property::urgent"] fun(self: Awesome.tag): nil
+-- ["property::urgent_count"] fun(self: Awesome.tag): nil
+-- ["request::screen"] fun(self: Awesome.tag): nil
+-- ["removal-pending"] fun(self: Awesome.tag): nil
+
+---@type Awesome.tag
+
+---@class Awesome.client
+---@field window integer: The X Window ID. (Read-only)
+---@field name string: The client title.
+---@field skip_taskbar boolean: True if the client does not want to be in the taskbar.
+---@field type string: The window type. (Read-only)
+---@field class string: The client class. (Read-only)
+---@field instance string: The client instance. (Read-only)
+---@field pid integer|nil: The client PID, if available. (Read-only)
+---@field role string|nil: The window role, if available. (Read-only)
+---@field machine string|nil: The machine client is running on. (Read-only)
+---@field icon_name string|nil: The client name when iconified. (Read-only)
+---@field icon any|nil: The client icon as a surface. (Read-only)
+---@field icon_sizes table|nil: The available sizes of client icons. (Read-only)
+---@field screen Awesome.screen: Client screen.
+---@field hidden boolean: Define if the client must be hidden, i.e., minimized.
+---@field minimized boolean: Define if the client must be iconified, i.e., minimized.
+---@field size_hints_honor boolean: Honor size hints, e.g., 'aspect_ratio'.
+---@field border_width integer: The client border width.
+---@field border_color string: The client border color.
+---@field urgent boolean: The client urgent state.
+---@field content any: A cairo surface for the client window content. (Read-only)
+---@field opacity number: The client opacity.
+---@field ontop boolean: The client is on top of every other window.
+---@field above boolean: The client is above normal windows.
+---@field below boolean: The client is below normal windows.
+---@field fullscreen boolean: The client is fullscreen or not.
+---@field maximized boolean: The client is maximized (horizontally and vertically) or not.
+---@field maximized_horizontal boolean: The client is maximized horizontally or not.
+---@field maximized_vertical boolean: The client is maximized vertically or not.
+---@field transient_for Awesome.client|nil: The client the window is transient for.
+---@field group_window integer|nil: Window identification unique to a group of windows. (Read-only)
+---@field leader_window integer|nil: Identification unique to windows spawned by the same command. (Read-only)
+---@field size_hints table: A table with size hints of the client. (Read-only)
+---@field motif_wm_hints table: The motif WM hints of the client. (Read-only)
+---@field sticky boolean: Set the client sticky, i.e., visible on all tags.
+---@field modal boolean: Indicate if the client is modal.
+---@field focusable boolean: True if the client can receive the input focus.
+---@field shape_bounding any: The client’s bounding shape as set by awesome as a (native) cairo surface.
+---@field shape_clip any: The client’s clip shape as set by awesome as a (native) cairo surface.
+---@field shape_input any: The client’s input shape as set by awesome as a (native) cairo surface.
+---@field client_shape_bounding any: The client’s bounding shape as set by the program as a (native) cairo surface. (Read-only)
+---@field client_shape_clip any: The client’s clip shape as set by the program as a (native) cairo surface. (Read-only)
+---@field startup_id string|nil: The FreeDesktop StartId. (Read-only)
+---@field valid boolean: If the client that this object refers to is still managed by awesome. (Read-only)
+---@field first_tag Awesome.tag|nil: The first tag of the client. (Read-only)
+---@field marked boolean: If a client is marked or not.
+---@field is_fixed boolean: Return if a client has a fixed size or not. (Read-only)
+---@field immobilized_horizontal boolean: Is the client immobilized horizontally? (Read-only)
+---@field immobilized_vertical boolean: Is the client immobilized vertically? (Read-only)
+---@field floating boolean: The client floating state.
+---@field x integer: The x coordinate.
+---@field y integer: The y coordinate.
+---@field width integer: The width of the client.
+---@field height integer: The height of the client.
+---@field dockable boolean: If the client is dockable. (Read-only)
+---@field requests_no_titlebar boolean: If the client requests not to be decorated with a titlebar. (Read-only)
+---@field shape any: Set the client shape.
+---@field struts fun(self: Awesome.client, struts: table|nil): table
+---@field buttons fun(self: Awesome.client, buttons_table: table|nil): table
+---@field instances fun(): integer
+---@field get fun(screen: Awesome.screen|nil, stacked: boolean|nil): Awesome.client[]
+---@field isvisible fun(self: Awesome.client): boolean
+---@field kill fun(self: Awesome.client): nil
+---@field swap fun(self: Awesome.client, c: Awesome.client): nil
+---@field tags fun(self: Awesome.client, tags_table: Awesome.tag[]|nil): Awesome.tag[]
+---@field raise fun(self: Awesome.client): nil
+---@field lower fun(self: Awesome.client): nil
+---@field unmanage fun(self: Awesome.client): nil
+---@field geometry fun(self: Awesome.client, geo: table|nil): table
+---@field apply_size_hints fun(self: Awesome.client, width: integer, height: integer): integer, integer
+---@field get_icon fun(self: Awesome.client, index: integer): any
+---@field jump_to fun(self: Awesome.client, merge: boolean|nil): nil
+---@field append_keybinding fun(self: Awesome.client, key: any): nil
+---@field remove_keybinding fun(self: Awesome.client, key: any): nil
+---@field append_mousebinding fun(self: Awesome.client, button: any): nil
+---@field remove_mousebinding fun(self: Awesome.client, button: any): nil
+---@field to_primary_section fun(self: Awesome.client): nil
+---@field to_secondary_section fun(self: Awesome.client): nil
+---@field relative_move fun(self: Awesome.client, x: integer, y: integer, w: integer, h: integer): nil
+---@field move_to_tag fun(self: Awesome.client, target: Awesome.tag): nil
+---@field toggle_tag fun(self: Awesome.client, target: Awesome.tag): nil
+---@field move_to_screen fun(self: Awesome.client, s: Awesome.screen|nil): nil
+---@field to_selected_tags fun(self: Awesome.client): nil
+---@field get_transient_for_matching fun(self: Awesome.client, matcher: fun(c: Awesome.client): boolean): Awesome.client|nil
+---@field is_transient_for fun(self: Awesome.client, c2: Awesome.client): boolean
+---@field activate fun(self: Awesome.client, args: table|nil): nil

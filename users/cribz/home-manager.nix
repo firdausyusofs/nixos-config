@@ -165,6 +165,7 @@ in {
     "hypr/hyprland.conf".text = builtins.readFile ./hyprland;
     "hypr/hyprpaper.conf".text = builtins.readFile ./hyprpaper;
     "polybar".source = ./polybar;
+    "awesome".source = ./awesomewm;
     
 
     # tree-sitter parsers

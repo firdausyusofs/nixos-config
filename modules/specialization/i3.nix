@@ -45,7 +45,7 @@
     };
 
     environment.variables = {
-      XCURSOR_SIZE = "128";
+      XCURSOR_SIZE = "48";
     };
 
     environment.systemPackages = with pkgs; [
